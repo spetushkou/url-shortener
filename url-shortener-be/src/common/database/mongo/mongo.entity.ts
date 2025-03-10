@@ -1,3 +1,5 @@
-import { Document, Types } from 'mongoose';
+import { Types } from 'mongoose';
 
-export abstract class MongoEntity extends Document<Types.ObjectId> {}
+export interface MongoEntity {
+  _id: Types.ObjectId;
+}

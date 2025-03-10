@@ -1,7 +1,6 @@
-import { Types } from 'mongoose';
+import { MongoEntity } from '../common/database/mongo/mongo.entity';
 
-export interface User {
-  _id: Types.ObjectId;
+export interface User extends MongoEntity {
   email: string;
   password: string;
 }

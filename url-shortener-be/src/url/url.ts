@@ -1,7 +1,6 @@
-import { Types } from 'mongoose';
+import { MongoEntity } from '../common/database/mongo/mongo.entity';
 
-export interface Url {
-  _id: Types.ObjectId;
+export interface Url extends MongoEntity {
   originalUrl: string;
   slug: string;
   createdAt: Date;

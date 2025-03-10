@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { MongoEntity } from '../common/database/mongo/mongo.entity';
+import { MongoDocument } from '../common/database/mongo/mongo.document';
 
 @Schema({ versionKey: false })
-export class Url extends MongoEntity {
+export class Url extends MongoDocument {
   @Prop({ required: true, unique: true })
   originalUrl: string;
 
