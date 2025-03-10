@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import crypto from 'crypto';
 import { UrlCreateDto } from './dto/url.create.dto';
-import { UrlCreateRepoDto } from './dto/url.create.repo.dto';
+import { UrlCreateRepositoryDto } from './dto/url.create.repository.dto';
 import { Url } from './url';
 import { UrlRepository } from './url.repository';
 
@@ -21,7 +21,7 @@ export class UrlService {
       return entity;
     }
 
-    const createRepoDto: UrlCreateRepoDto = {
+    const createRepoDto: UrlCreateRepositoryDto = {
       ...createDto,
       slug: this.generateSlug(),
     };

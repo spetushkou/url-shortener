@@ -1,7 +1,7 @@
 import { IsUrl } from 'class-validator';
-import { UrlCreateRepoDto } from './url.create.repo.dto';
+import { Url } from '../url';
 
-export class UrlCreateDto implements Omit<UrlCreateRepoDto, 'slug'> {
+export class UrlCreateDto implements Omit<Url, '_id' | 'createdAt' | 'slug'> {
   @IsUrl()
   originalUrl: string;
 }
