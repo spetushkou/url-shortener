@@ -17,9 +17,6 @@
     ".": "./dist/index.js"
   },
   "type": "commonjs",
-  "engines": {
-    "node": ">=20.17.0"
-  },
   "config": {
     "dir": {
       "bin": "./bin",
@@ -30,7 +27,7 @@
   },
   "scripts": {
     "start:dev": "nest start --watch -- -b swc",
-    "start:dev:docker": "docker compose up",
+    "start:dev:docker": "docker compose up --build",
     "start:debug": "nest start --debug --watch",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "jest --no-cache --runInBand .unit. --coverage",
