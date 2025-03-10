@@ -1,4 +1,4 @@
-@PORT = 8080
+@PORT = 3000
 @HOST = http://localhost:{{PORT}}
 @RESOURCE = /superheroes
 @URL = {{HOST}}{{RESOURCE}}

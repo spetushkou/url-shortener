@@ -1,16 +1,15 @@
 import { DynamicModule, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 
-// in-memory MongoDB server
 @Module({
   imports: [
     MongooseModule.forRootAsync({
-      useFactory: async () => {
-        const mongoServer = await MongoMemoryServer.create();
-        const uri = mongoServer.getUri();
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
         return {
-          uri,
+          uri: configService.get<string>('DATABASE_URL'),
         };
       },
     }),

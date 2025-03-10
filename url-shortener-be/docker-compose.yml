@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  # MongoDB service
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: url_shortener
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    command: mongod --quiet
+
+  # Backend service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: backend
+    restart: unless-stopped
+    environment:
+      - APP_PORT=3000
+      - APP_PACKAGE_JSON_PATH=./package.json
+      - DATABASE_URL=mongodb://admin:admin@mongo:27017/url_shortener?authSource=admin
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongo
+    command: npm run start:dev
+
+volumes:
+  mongo-data:
+    driver: local
