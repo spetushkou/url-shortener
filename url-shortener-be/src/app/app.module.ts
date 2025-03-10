@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { ExceptionGlobalFilterProvider } from '../common/exception/exception.global.filter.provider';
 import { PinoLoggerModule } from '../common/logger/pino/pino.logger.module';
 import { DatabaseMongoMongooseModule } from '../database/mongo/database.mongo.mongoose.module';
-import { SuperheroModule } from '../superhero/superhero.module';
+import { UrlModule } from '../url/url.module';
 import { AppConfigValidationSchema } from './app.config.validation.schema';
 
 @Module({
@@ -20,7 +20,7 @@ import { AppConfigValidationSchema } from './app.config.validation.schema';
     }),
     PinoLoggerModule,
     DatabaseMongoMongooseModule,
-    SuperheroModule,
+    UrlModule,
   ],
   providers: [ExceptionGlobalFilterProvider],
 })

@@ -1,20 +1,22 @@
 @PORT = 3000
 @HOST = http://localhost:{{PORT}}
-@RESOURCE = /superheroes
+@RESOURCE = /url
 @URL = {{HOST}}{{RESOURCE}}
 @CONTENT_TYPE_JSON = Content-Type: application/json
 @ID = 
 
-### find many
+### findMany
 GET {{URL}}
 {{CONTENT_TYPE_JSON}}
 
-### create
+### findOneBySlug
+GET {{URL}}/sadas3
+{{CONTENT_TYPE_JSON}}
+
+### createShort
 POST {{URL}}
 {{CONTENT_TYPE_JSON}}
 
 {
-  "name": "Spider-Man",
-  "superpower": "Wall-Crawling",
-  "humilityScore": 7
+  "originalUrl": "https://nodejs.org/docs/latest/api/"
 }
