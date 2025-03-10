@@ -21,12 +21,12 @@ export class UrlService {
       return entity;
     }
 
-    const createRepoDto: UrlCreateRepositoryDto = {
+    const createRepositoryDto: UrlCreateRepositoryDto = {
       ...createDto,
       slug: this.generateSlug(),
     };
 
-    return this.repository.create(createRepoDto);
+    return this.repository.create(createRepositoryDto);
   }
 
   private generateSlug(): string {
