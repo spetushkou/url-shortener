@@ -1,24 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model } from 'mongoose';
-import { UrlCreateRepositoryDto } from './dto/url.create.repository.dto';
+import { Model } from 'mongoose';
+import { MongoBaseRepository } from '../common/database/mongo/mongo.base.repository';
 import { Url } from './url.entity';
 
 @Injectable()
-export class UrlRepository {
-  constructor(@InjectModel(Url.name) private readonly model: Model<Url>) {}
-
-  async findMany(): Promise<Url[]> {
-    return this.model.find().lean<Url[]>(true);
-  }
-
-  async findOne(params: FilterQuery<Url>): Promise<Url | null> {
-    return this.model.findOne(params).lean<Url>(true);
-  }
-
-  async create(createDto: UrlCreateRepositoryDto): Promise<Url> {
-    const entity = new this.model(createDto);
-    const entitySaved = await entity.save();
-    return entitySaved.toJSON() as Url;
+export class UrlRepository extends MongoBaseRepository<Url> {
+  constructor(@InjectModel(Url.name) model: Model<Url>) {
+    super(model);
   }
 }

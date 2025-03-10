@@ -1,8 +1,7 @@
 import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { MongoDocument } from './mongo.document';
-import { MongoEntity } from './mongo.entity';
 
-export abstract class MongoBaseRepository<Entity extends MongoDocument, Dto extends MongoEntity> {
+export abstract class MongoBaseRepository<Entity extends MongoDocument> {
   constructor(protected readonly model: Model<Entity>) {}
 
   async findMany(filter: FilterQuery<Entity> = {}): Promise<Entity[]> {
@@ -13,7 +12,7 @@ export abstract class MongoBaseRepository<Entity extends MongoDocument, Dto exte
     return this.model.findOne(filter).lean<Entity>(true);
   }
 
-  async create(createDto: Dto): Promise<Entity> {
+  async create(createDto: Partial<Entity>): Promise<Entity> {
     const entity = new this.model(createDto);
     const entitySaved = await entity.save();
     return entitySaved.toJSON() as Entity;
