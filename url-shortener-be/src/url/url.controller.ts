@@ -14,13 +14,14 @@ export class UrlController {
   }
 
   @Post()
-  async createShort(@Body() createDto: UrlCreateDto): Promise<Url> {
-    return this.service.createShort(createDto);
+  async createShort(@Body() createDto: UrlCreateDto): Promise<{ data: Url }> {
+    const entity = await this.service.createShort(createDto);
+    return { data: entity };
   }
 
   @Get(':slug')
-  async findOneBySlug(@Param('slug') slug: string): Promise<{ originalUrl: string }> {
-    const originalUrl = await this.service.findOneBySlug(slug);
-    return { originalUrl };
+  async findOneBySlug(@Param('slug') slug: string): Promise<{ data: Url }> {
+    const entity = await this.service.findOneBySlug(slug);
+    return { data: entity };
   }
 }

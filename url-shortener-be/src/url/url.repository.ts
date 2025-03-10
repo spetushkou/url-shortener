@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UrlCreateRepoDto } from './dto/url.create.repo.dto';
 import { Url } from './entity/url.model';
+import { Url as UrlType } from './url';
 
 @Injectable()
 export class UrlRepository {
@@ -12,8 +13,8 @@ export class UrlRepository {
     return this.model.find().lean<Url[]>(true);
   }
 
-  async findOneBySlug(slug: string): Promise<Url | null> {
-    return this.model.findOne({ slug }).lean<Url>(true);
+  async findOne(params: Partial<UrlType>): Promise<Url | null> {
+    return this.model.findOne(params).lean<Url>(true);
   }
 
   async create(createDto: UrlCreateRepoDto): Promise<Url> {

@@ -14,22 +14,31 @@ export class UrlService {
   }
 
   async createShort(createDto: UrlCreateDto): Promise<Url> {
-    const slug = crypto.randomBytes(3).toString('hex');
+    const { originalUrl } = createDto;
+
+    const entity = await this.repository.findOne({ originalUrl });
+    if (entity) {
+      return entity;
+    }
 
     const createRepoDto: UrlCreateRepoDto = {
       ...createDto,
-      slug,
+      slug: this.generateSlug(),
     };
 
     return this.repository.create(createRepoDto);
   }
 
-  async findOneBySlug(slug: string): Promise<string> {
-    const url = await this.repository.findOneBySlug(slug);
-    if (!url) {
+  private generateSlug(): string {
+    return crypto.randomBytes(3).toString('hex');
+  }
+
+  async findOneBySlug(slug: string): Promise<Url> {
+    const entity = await this.repository.findOne({ slug });
+    if (!entity) {
       throw new NotFoundException('URL not found');
     }
 
-    return url.originalUrl;
+    return entity;
   }
 }

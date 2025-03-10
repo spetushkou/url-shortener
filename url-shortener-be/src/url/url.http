@@ -10,7 +10,7 @@ GET {{URL}}
 {{CONTENT_TYPE_JSON}}
 
 ### findOneBySlug
-GET {{URL}}/sadas3
+GET {{URL}}/fe6b8a
 {{CONTENT_TYPE_JSON}}
 
 ### createShort
@@ -18,5 +18,5 @@ POST {{URL}}
 {{CONTENT_TYPE_JSON}}
 
 {
-  "originalUrl": "https://nodejs.org/docs/latest/api/"
+  "originalUrl": "https://nodejs.org/docs/latest/api3/"
 }
