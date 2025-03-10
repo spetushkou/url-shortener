@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Url as UrlType } from '../url';
+import { Url as UrlType } from './url';
 
 @Schema({ versionKey: false })
 export class Url extends Document implements Omit<UrlType, '_id'> {

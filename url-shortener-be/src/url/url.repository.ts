@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UrlCreateRepositoryDto } from './dto/url.create.repository.dto';
-import { Url } from './entity/url.model';
 import { Url as UrlType } from './url';
+import { Url } from './url.entity';
 
 @Injectable()
 export class UrlRepository {

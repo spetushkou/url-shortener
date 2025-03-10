@@ -5,6 +5,7 @@ import { ExceptionGlobalFilterProvider } from '../common/exception/exception.glo
 import { PinoLoggerModule } from '../common/logger/pino/pino.logger.module';
 import { DatabaseMongoMongooseModule } from '../database/mongo/database.mongo.mongoose.module';
 import { UrlModule } from '../url/url.module';
+import { UserModule } from '../user/user.module';
 import { AppConfigValidationSchema } from './app.config.validation.schema';
 
 @Module({
@@ -21,6 +22,7 @@ import { AppConfigValidationSchema } from './app.config.validation.schema';
     PinoLoggerModule,
     DatabaseMongoMongooseModule,
     UrlModule,
+    UserModule,
   ],
   providers: [ExceptionGlobalFilterProvider],
 })

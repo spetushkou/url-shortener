@@ -1,6 +1,6 @@
 @PORT = 3000
 @HOST = http://localhost:{{PORT}}
-@RESOURCE = /url
+@RESOURCE = /users
 @URL = {{HOST}}{{RESOURCE}}
 @CONTENT_TYPE_JSON = Content-Type: application/json
 @ID = 
@@ -9,14 +9,11 @@
 GET {{URL}}
 {{CONTENT_TYPE_JSON}}
 
-### findOneBySlug
-GET {{URL}}/fe6b8a
-{{CONTENT_TYPE_JSON}}
-
-### createShort
+### create
 POST {{URL}}
 {{CONTENT_TYPE_JSON}}
 
 {
-  "originalUrl": "https://nodejs.org/docs/latest/api8/"
+  "email": "name2@company.com",
+  "password": "raNdomPass1357!"
 }
