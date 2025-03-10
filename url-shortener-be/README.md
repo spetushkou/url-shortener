@@ -1,6 +1,6 @@
-# humble-superhero-be
+# url-shortener-be
 
-The backend is implemented with NestJS and the template I was using in my daily work. There is some code in the `src/common` folder, please do not pay attention to it. The rest of the code is related to the task. The in-memory db is impelmented with a MongoDB instance and the `mongodb-memory-server` package.
+The backend is implemented with NestJS and the template I was using in my daily work. There is some code in the `src/common` folder, please do not pay attention to it. The rest of the code is related to the task.
 
 There are 2 tests: 1 unit test and 1 e2e test.
 
