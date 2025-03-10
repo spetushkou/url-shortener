@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
-import { ResponseManyController } from '../common/response/response.many.controller';
-import { ResponseOneController } from '../common/response/response.one.controller';
+import { ResponseControllerMany } from '../common/response/response.controller.many';
+import { ResponseControllerOne } from '../common/response/response.controller.one';
 import { UserCreateDto } from './dto/user.create.dto';
 import { User } from './user';
 import { UserService } from './user.service';
@@ -10,13 +10,13 @@ export class UserController {
   constructor(private readonly service: UserService) {}
 
   @Get()
-  async findMany(): Promise<ResponseManyController<User>> {
+  async findMany(): Promise<ResponseControllerMany<User>> {
     const entities = await this.service.findMany();
     return { data: entities };
   }
 
   @Post()
-  async create(@Body() createDto: UserCreateDto): Promise<ResponseOneController<User>> {
+  async create(@Body() createDto: UserCreateDto): Promise<ResponseControllerOne<User>> {
     const { email } = createDto;
     const entity = await this.service.findOneByEmail(email);
     if (entity) {
