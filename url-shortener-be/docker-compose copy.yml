@@ -1,8 +1,8 @@
 services:
   # MongoDB service
-  url-shortener-db:
+  mongo:
     image: mongo:latest
-    container_name: url-shortener-db
+    container_name: mongo
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -16,23 +16,21 @@ services:
 
   # url-shortener-be service
   url-shortener-be:
-    image: url-shortener-be
     build:
       context: .
       dockerfile: Dockerfile.dev
     container_name: url-shortener-be
-    restart: no
+    restart: unless-stopped
     environment:
-      - NODE_ENV=development
       - APP_PORT=3000
       - APP_PACKAGE_JSON_PATH=./package.json
-      - DATABASE_URL=mongodb://admin:admin@url-shortener-db:27017/url_shortener?authSource=admin
+      - DATABASE_URL=mongodb://admin:admin@mongo:27017/url_shortener?authSource=admin
     ports:
       - '3000:3000'
     volumes:
       - .:/usr/src/app
     depends_on:
-      - url-shortener-db
+      - mongo
     command: npm run start:dev
 
 volumes:
