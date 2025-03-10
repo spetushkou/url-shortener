@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { Cookie } from '../common/cookie/cookie';
+import { UtilMongo } from '../common/util/util.mongo';
 import { User } from '../user/user';
 import { UserService } from '../user/user.service';
 import { AuthJwtPayload } from './jwt/auth.jwt.payload';
@@ -20,7 +21,7 @@ export class AuthService {
     const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
 
     const payload: AuthJwtPayload = {
-      userId: user._id.toHexString(),
+      userId: UtilMongo.getId(user._id),
     };
 
     const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, payload);
@@ -32,7 +33,7 @@ export class AuthService {
     const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
 
     const payload: AuthJwtPayload = {
-      userId: user._id.toHexString(),
+      userId: UtilMongo.getId(user._id),
     };
 
     const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, payload);

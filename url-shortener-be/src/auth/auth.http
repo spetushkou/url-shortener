@@ -3,7 +3,7 @@
 @RESOURCE = /auth
 @URL = {{HOST}}{{RESOURCE}}
 @CONTENT_TYPE_JSON = Content-Type: application/json
-@AUTH_COOKIE = Cookie: Authentication=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NlZjM0NWVjZmViZTk4ODkzNmFkZWQiLCJpYXQiOjE3NDE2MTYwMzQsImV4cCI6MTc0MTYxOTYzNH0.tde-h2475opf-INTOxuzUNTZFtop-AT1bWZkMtViqFw; Path=/; Expires=Sun, 16 Mar 2025 21:13:00 GMT; HttpOnly
+@AUTH_COOKIE = Cookie: Authentication=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NlZjM0NWVjZmViZTk4ODkzNmFkZWQiLCJpYXQiOjE3NDE2MzA1MDMsImV4cCI6MTc0MTYzNDEwM30.mHrt76VlEo0VfBq6F0oIsCKeWG1bvQZJTUQynLVlQ18; Path=/; Expires=Tue, 11 Mar 2025 03:35:00 GMT; HttpOnly
 
 ### login
 POST {{URL}}/login
