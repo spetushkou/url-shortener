@@ -1,5 +1,6 @@
 import { Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
+import { Transformer } from '../common/transformer/transformer';
 import { UserSerializer } from '../user/dto/user.serialize.dto';
 import { User } from '../user/user';
 import { AuthService } from './auth.service';
@@ -16,7 +17,10 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
     await this.authService.login(user, res);
-    res.send(user);
+
+    const userSerialized = Transformer.toPlain(new UserSerializer(user));
+
+    res.send(userSerialized);
   }
 
   @UseGuards(AuthorizeJwtGuard)
