@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   # MongoDB service
   mongo:
@@ -16,12 +14,12 @@ services:
       - mongo-data:/data/db
     command: mongod --quiet
 
-  # Backend service
-  backend:
+  # url-shortener-be service
+  url-shortener-be:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    container_name: backend
+    container_name: url-shortener-be
     restart: unless-stopped
     environment:
       - APP_PORT=3000
