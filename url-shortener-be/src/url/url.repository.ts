@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { UrlCreateRepositoryDto } from './dto/url.create.repository.dto';
-import { Url as UrlType } from './url';
 import { Url } from './url.entity';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class UrlRepository {
     return this.model.find().lean<Url[]>(true);
   }
 
-  async findOne(params: Partial<UrlType>): Promise<Url | null> {
+  async findOne(params: FilterQuery<Url>): Promise<Url | null> {
     return this.model.findOne(params).lean<Url>(true);
   }
 
