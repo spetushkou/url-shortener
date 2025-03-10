@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Types } from 'mongoose';
+import { AuthPasswordService } from '../auth/password/auth.password.service';
 import { UserCreateDto } from './dto/user.create.dto';
 import { User } from './user';
 import { UserRepository } from './user.repository';
@@ -8,8 +10,11 @@ export class UserService {
   constructor(private readonly repository: UserRepository) {}
 
   async findMany(): Promise<User[]> {
-    const result = await this.repository.findMany();
-    return result;
+    return this.repository.findMany();
+  }
+
+  async findOneById(filterById: { _id: Types.ObjectId }): Promise<User | null> {
+    return this.repository.findOne(filterById);
   }
 
   async findOneByEmail(email: string): Promise<User | null> {
@@ -17,6 +22,26 @@ export class UserService {
   }
 
   async create(createDto: UserCreateDto): Promise<User> {
-    return this.repository.create(createDto);
+    const passwordHashed = await AuthPasswordService.hash(createDto.password);
+
+    const createDtoUpdated: UserCreateDto = {
+      ...createDto,
+      password: passwordHashed,
+    };
+
+    return this.repository.create(createDtoUpdated);
+  }
+  async verifyAuthentication(email: string, password: string): Promise<User | null> {
+    const user = await this.findOneByEmail(email);
+    if (!user) {
+      return null;
+    }
+
+    const passwordValid = await AuthPasswordService.verify(password, user.password);
+    if (!passwordValid) {
+      return null;
+    }
+
+    return user;
   }
 }

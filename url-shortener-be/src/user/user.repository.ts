@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { UserCreateDto } from './dto/user.create.dto';
-import { User as UserType } from './user';
 import { User } from './user.entity';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class UserRepository {
     return this.model.find().lean<User[]>(true);
   }
 
-  async findOne(params: Partial<UserType>): Promise<User | null> {
+  async findOne(params: FilterQuery<User>): Promise<User | null> {
     return this.model.findOne(params).lean<User>(true);
   }
 

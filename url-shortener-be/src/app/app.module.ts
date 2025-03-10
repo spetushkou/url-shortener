@@ -1,6 +1,7 @@
 import { Module, OnModuleDestroy } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import mongoose from 'mongoose';
+import { AuthModule } from '../auth/auth.module';
 import { ExceptionGlobalFilterProvider } from '../common/exception/exception.global.filter.provider';
 import { PinoLoggerModule } from '../common/logger/pino/pino.logger.module';
 import { DatabaseMongoMongooseModule } from '../database/mongo/database.mongo.mongoose.module';
@@ -21,8 +22,9 @@ import { AppConfigValidationSchema } from './app.config.validation.schema';
     }),
     PinoLoggerModule,
     DatabaseMongoMongooseModule,
-    UrlModule,
     UserModule,
+    AuthModule,
+    UrlModule,
   ],
   providers: [ExceptionGlobalFilterProvider],
 })
