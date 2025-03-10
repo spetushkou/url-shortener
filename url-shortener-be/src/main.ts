@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { AppFactory } from './app/bootstrap/app.factory';
 import { ServerStarter } from './app/bootstrap/server.starter';
+import { useCookie } from './app/bootstrap/use.cookie';
 import { useLogger } from './app/bootstrap/use.logger';
 import { useShutdownHooks } from './app/bootstrap/use.shutdown.hooks';
 import { useValidation } from './app/bootstrap/use.validation';
@@ -19,6 +20,7 @@ async function bootstrap(): Promise<void> {
 
   useLogger(app);
   useValidation(app);
+  useCookie(app);
   useShutdownHooks(app);
 
   await ServerStarter.startHttp(app, config.getOrThrow<number>('APP_PORT'));
