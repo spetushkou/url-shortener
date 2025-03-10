@@ -4,7 +4,6 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Cookie } from '../../../common/cookie/cookie';
-import { UtilMongo } from '../../../common/util/util.mongo';
 import { UserService } from '../../../user/user.service';
 import { AuthJwtPayload } from '../../jwt/auth.jwt.payload';
 import { AuthResponse } from '../../reponse/auth.response';
@@ -34,7 +33,6 @@ export class AuthorizeJwtStrategy extends PassportStrategy(Strategy, AuthStrateg
    *
    */
   async validate({ userId }: AuthJwtPayload): Promise<AuthResponse> {
-    const filterById = UtilMongo.getFilterbyId(userId);
-    return await this.userService.findOneById(filterById);
+    return await this.userService.findOneById(userId);
   }
 }

@@ -1,5 +1,6 @@
 import { Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
+import { UserSerializer } from '../user/dto/user.serialize.dto';
 import { User } from '../user/user';
 import { AuthService } from './auth.service';
 import { AuthUser } from './decorator/auth.user.decorator';
@@ -21,6 +22,6 @@ export class AuthController {
   @UseGuards(AuthorizeJwtGuard)
   @Get('me')
   async me(@AuthUser() user: User): Promise<User> {
-    return user;
+    return new UserSerializer(user);
   }
 }

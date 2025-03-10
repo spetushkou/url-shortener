@@ -21,7 +21,7 @@ export class AuthService {
     const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
 
     const payload: AuthJwtPayload = {
-      userId: UtilMongo.getId(user._id),
+      userId: UtilMongo.parseId(user._id),
     };
 
     const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, payload);
@@ -33,7 +33,7 @@ export class AuthService {
     const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
 
     const payload: AuthJwtPayload = {
-      userId: UtilMongo.getId(user._id),
+      userId: UtilMongo.parseId(user._id),
     };
 
     const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, payload);

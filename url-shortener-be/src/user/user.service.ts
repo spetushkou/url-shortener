@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Types } from 'mongoose';
 import { AuthPasswordService } from '../auth/password/auth.password.service';
+import { UtilMongo } from '../common/util/util.mongo';
 import { UserCreateDto } from './dto/user.create.dto';
 import { User } from './user';
 import { UserRepository } from './user.repository';
@@ -13,7 +13,8 @@ export class UserService {
     return this.repository.findMany();
   }
 
-  async findOneById(filterById: { _id: Types.ObjectId }): Promise<User | null> {
+  async findOneById(id: string): Promise<User | null> {
+    const filterById = UtilMongo.getFilterById(id);
     return this.repository.findOne(filterById);
   }
 
