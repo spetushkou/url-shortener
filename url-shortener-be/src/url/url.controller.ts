@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { ResponseManyController } from '../common/response/response.many.controller';
 import { ResponseOneController } from '../common/response/response.one.controller';
 import { UrlCreateDto } from './dto/url.create.dto';
@@ -24,6 +24,10 @@ export class UrlController {
   @Get(':slug')
   async findOneBySlug(@Param('slug') slug: string): Promise<ResponseOneController<Url>> {
     const entity = await this.service.findOneBySlug(slug);
+    if (!entity) {
+      throw new NotFoundException('URL not found');
+    }
+
     return { data: entity };
   }
 }

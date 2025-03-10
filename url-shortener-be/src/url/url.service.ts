@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import crypto from 'crypto';
 import { UrlCreateDto } from './dto/url.create.dto';
@@ -41,12 +41,7 @@ export class UrlService {
     return `${prefix}${slug}`;
   }
 
-  async findOneBySlug(slug: string): Promise<Url> {
-    const entity = await this.repository.findOne({ slug });
-    if (!entity) {
-      throw new NotFoundException('URL not found');
-    }
-
-    return entity;
+  async findOneBySlug(slug: string): Promise<Url | null> {
+    return this.repository.findOne({ slug });
   }
 }
