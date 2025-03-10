@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import crypto from 'crypto';
 import { UrlCreateDto } from './dto/url.create.dto';
 import { UrlCreateRepositoryDto } from './dto/url.create.repository.dto';
@@ -7,7 +8,10 @@ import { UrlRepository } from './url.repository';
 
 @Injectable()
 export class UrlService {
-  constructor(private readonly repository: UrlRepository) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly repository: UrlRepository,
+  ) {}
 
   async findMany(): Promise<Url[]> {
     return this.repository.findMany();
@@ -23,14 +27,18 @@ export class UrlService {
 
     const createRepositoryDto: UrlCreateRepositoryDto = {
       ...createDto,
-      slug: this.generateSlug(),
+      slug: this.generateSlug(originalUrl),
     };
 
     return this.repository.create(createRepositoryDto);
   }
 
-  private generateSlug(): string {
-    return crypto.randomBytes(3).toString('hex');
+  private generateSlug(originalUrl: string): string {
+    const prefix = this.configService.get<string>('URL_SLUG_PREFIX');
+    const hash = crypto.createHash('sha256').update(originalUrl).digest('hex');
+    const slug = hash.slice(0, 6);
+
+    return `${prefix}${slug}`;
   }
 
   async findOneBySlug(slug: string): Promise<Url> {

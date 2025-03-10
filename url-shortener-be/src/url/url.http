@@ -18,5 +18,5 @@ POST {{URL}}
 {{CONTENT_TYPE_JSON}}
 
 {
-  "originalUrl": "https://nodejs.org/docs/latest/api3/"
+  "originalUrl": "https://nodejs.org/docs/latest/api7/"
 }

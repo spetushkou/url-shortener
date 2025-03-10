@@ -27,6 +27,7 @@ services:
       - APP_PORT=3000
       - APP_PACKAGE_JSON_PATH=./package.json
       - DATABASE_URL=mongodb://admin:admin@url-shortener-db:27017/url_shortener?authSource=admin
+      - URL_SLUG_PREFIX=https://short.ly/
     ports:
       - '3000:3000'
     volumes:
