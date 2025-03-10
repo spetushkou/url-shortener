@@ -1,6 +1,7 @@
-import { Document, Types } from 'mongoose';
+import { Types } from 'mongoose';
 
-export interface Url extends Document<Types.ObjectId> {
+export interface Url {
+  _id: Types.ObjectId;
   originalUrl: string;
   slug: string;
   createdAt: Date;
