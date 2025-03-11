@@ -13,7 +13,7 @@ export class UserService {
     return this.repository.findMany();
   }
 
-  async findOneById(id: string): Promise<User | null> {
+  async findOne(id: string): Promise<User | null> {
     const filterById = UtilMongo.getFilterById(id);
     return this.repository.findOne(filterById);
   }

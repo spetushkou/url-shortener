@@ -3,10 +3,14 @@
 @RESOURCE = /users
 @URL = {{HOST}}{{RESOURCE}}
 @CONTENT_TYPE_JSON = Content-Type: application/json
-@ID = 
+@ID = 67d000eeaff13648b503b608
 
 ### findMany
 GET {{URL}}
+{{CONTENT_TYPE_JSON}}
+
+### findOne
+GET {{URL}}/{{ID}}
 {{CONTENT_TYPE_JSON}}
 
 ### create

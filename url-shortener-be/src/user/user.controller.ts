@@ -1,4 +1,13 @@
-import { Body, ConflictException, Controller, Get, Post, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { UserCreateDto } from './dto/user.create.dto';
 import { UserSerializer } from './dto/user.serializer.dto';
@@ -14,6 +23,16 @@ export class UserController {
   async findMany(): Promise<User[]> {
     const entities = await this.service.findMany();
     return entities.map((entity) => new UserSerializer(entity));
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<User> {
+    const entity = await this.service.findOne(id);
+    if (!entity) {
+      throw new NotFoundException();
+    }
+
+    return new UserSerializer(entity);
   }
 
   @Post()

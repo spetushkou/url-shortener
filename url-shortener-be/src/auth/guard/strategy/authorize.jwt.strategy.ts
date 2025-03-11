@@ -33,6 +33,6 @@ export class AuthorizeJwtStrategy extends PassportStrategy(Strategy, AuthStrateg
    *
    */
   async validate({ userId }: AuthJwtPayload): Promise<AuthResponse> {
-    return await this.userService.findOneById(userId);
+    return await this.userService.findOne(userId);
   }
 }
