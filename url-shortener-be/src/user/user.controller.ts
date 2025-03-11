@@ -2,15 +2,18 @@ import {
   Body,
   ConflictException,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
+  Patch,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { UserCreateDto } from './dto/user.create.dto';
 import { UserSerializer } from './dto/user.serializer.dto';
+import { UserUpdateDto } from './dto/user.update.dto';
 import { User } from './user';
 import { UserService } from './user.service';
 
@@ -43,7 +46,37 @@ export class UserController {
       throw new ConflictException();
     }
 
-    const entityNew = await this.service.create(createDto);
-    return new UserSerializer(entityNew);
+    const entityCreated = await this.service.create(createDto);
+    return new UserSerializer(entityCreated);
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateDto: UserUpdateDto): Promise<User> {
+    const entity = await this.service.findOne(id);
+    if (!entity) {
+      throw new NotFoundException();
+    }
+
+    const entityUpdated = await this.service.update(id, updateDto);
+    if (!entityUpdated) {
+      throw new NotFoundException();
+    }
+
+    return new UserSerializer(entityUpdated);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<User> {
+    const entity = await this.service.findOne(id);
+    if (!entity) {
+      throw new NotFoundException();
+    }
+
+    const entityDeleted = await this.service.delete(id);
+    if (!entityDeleted) {
+      throw new NotFoundException();
+    }
+
+    return new UserSerializer(entityDeleted);
   }
 }

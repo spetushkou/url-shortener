@@ -21,3 +21,15 @@ POST {{URL}}
   "email": "name2@company.com",
   "password": "raNdomPass1357!"
 }
+
+### update
+PATCH {{URL}}/{{ID}}
+{{CONTENT_TYPE_JSON}}
+
+{
+  "password": "newPassword1357!"
+}
+
+### delete
+DELETE {{URL}}/{{ID}}
+{{CONTENT_TYPE_JSON}}
