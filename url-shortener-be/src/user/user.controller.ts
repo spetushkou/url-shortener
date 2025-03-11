@@ -1,22 +1,21 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
-import { ResponseControllerMany } from '../common/response/response.controller.many';
-import { ResponseControllerOne } from '../common/response/response.controller.one';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, UseInterceptors } from '@nestjs/common';
+import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { UserCreateDto } from './dto/user.create.dto';
 import { User } from './user';
 import { UserService } from './user.service';
 
 @Controller('users')
+@UseInterceptors(ResponseControllerInterceptor)
 export class UserController {
   constructor(private readonly service: UserService) {}
 
   @Get()
-  async findMany(): Promise<ResponseControllerMany<User>> {
-    const entities = await this.service.findMany();
-    return { data: entities };
+  async findMany(): Promise<User[]> {
+    return this.service.findMany();
   }
 
   @Post()
-  async create(@Body() createDto: UserCreateDto): Promise<ResponseControllerOne<User>> {
+  async create(@Body() createDto: UserCreateDto): Promise<User> {
     const { email } = createDto;
     const entity = await this.service.findOneByEmail(email);
     if (entity) {
@@ -24,6 +23,6 @@ export class UserController {
     }
 
     const entityNew = await this.service.create(createDto);
-    return { data: entityNew };
+    return entityNew;
   }
 }
