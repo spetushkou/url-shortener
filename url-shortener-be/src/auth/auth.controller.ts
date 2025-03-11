@@ -1,5 +1,6 @@
-import { Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Response } from 'express';
+import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { Transformer } from '../common/transformer/transformer';
 import { UserSerializer } from '../user/dto/user.serialize.dto';
 import { User } from '../user/user';
@@ -12,8 +13,8 @@ import { AuthorizeJwtGuard } from './guard/authorize.jwt.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(AuthenticateLocalGuard)
   @Post('login')
+  @UseGuards(AuthenticateLocalGuard)
   @HttpCode(HttpStatus.OK)
   async login(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
     await this.authService.login(user, res);
@@ -23,8 +24,9 @@ export class AuthController {
     res.send(userSerialized);
   }
 
-  @UseGuards(AuthorizeJwtGuard)
   @Get('me')
+  @UseInterceptors(ResponseControllerInterceptor)
+  @UseGuards(AuthorizeJwtGuard)
   async me(@AuthUser() user: User): Promise<User> {
     return new UserSerializer(user);
   }
