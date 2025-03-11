@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { AuthModule } from '../auth/auth.module';
 import { ExceptionGlobalFilterProvider } from '../common/exception/exception.global.filter.provider';
 import { PinoLoggerModule } from '../common/logger/pino/pino.logger.module';
-import { DatabaseMongoMongooseModule } from '../database/mongo/database.mongo.mongoose.module';
+import { DatabaseMongoModule } from '../database/mongo/database.mongo.module';
 import { UrlModule } from '../url/url.module';
 import { UserModule } from '../user/user.module';
 import { AppConfigValidationSchema } from './app.config.validation.schema';
@@ -21,7 +21,7 @@ import { AppConfigValidationSchema } from './app.config.validation.schema';
       expandVariables: true,
     }),
     PinoLoggerModule,
-    DatabaseMongoMongooseModule,
+    DatabaseMongoModule,
     UserModule,
     AuthModule,
     UrlModule,

@@ -1,7 +1,7 @@
 import { Body, ConflictException, Controller, Get, Post, UseInterceptors } from '@nestjs/common';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { UserCreateDto } from './dto/user.create.dto';
-import { UserSerializer } from './dto/user.serialize.dto';
+import { UserSerializer } from './dto/user.serializer.dto';
 import { User } from './user';
 import { UserService } from './user.service';
 

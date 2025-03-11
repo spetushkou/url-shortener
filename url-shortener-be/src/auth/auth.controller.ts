@@ -2,7 +2,7 @@ import { Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards, UseInterce
 import { Response } from 'express';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { Transformer } from '../common/transformer/transformer';
-import { UserSerializer } from '../user/dto/user.serialize.dto';
+import { UserSerializer } from '../user/dto/user.serializer.dto';
 import { User } from '../user/user';
 import { AuthService } from './auth.service';
 import { AuthUser } from './decorator/auth.user.decorator';

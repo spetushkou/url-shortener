@@ -1,6 +1,7 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, UseInterceptors } from '@nestjs/common';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { UrlCreateDto } from './dto/url.create.dto';
+import { UrlSerializer } from './dto/url.serializer.dto';
 import { Url } from './url';
 import { UrlService } from './url.service';
 
@@ -11,12 +12,14 @@ export class UrlController {
 
   @Get()
   async findMany(): Promise<Url[]> {
-    return this.service.findMany();
+    const entities = await this.service.findMany();
+    return entities.map((entity) => new UrlSerializer(entity));
   }
 
   @Post()
   async createShort(@Body() createDto: UrlCreateDto): Promise<Url> {
-    return this.service.createShort(createDto);
+    const entity = await this.service.createShort(createDto);
+    return new UrlSerializer(entity);
   }
 
   @Get(':slug')
@@ -26,6 +29,6 @@ export class UrlController {
       throw new NotFoundException('URL not found');
     }
 
-    return entity;
+    return new UrlSerializer(entity);
   }
 }
