@@ -1,6 +1,7 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UseInterceptors } from '@nestjs/common';
+import { Body, ConflictException, Controller, Get, Post, UseInterceptors } from '@nestjs/common';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { UserCreateDto } from './dto/user.create.dto';
+import { UserSerializer } from './dto/user.serialize.dto';
 import { User } from './user';
 import { UserService } from './user.service';
 
@@ -11,7 +12,8 @@ export class UserController {
 
   @Get()
   async findMany(): Promise<User[]> {
-    return this.service.findMany();
+    const entities = await this.service.findMany();
+    return entities.map((entity) => new UserSerializer(entity));
   }
 
   @Post()
@@ -19,10 +21,10 @@ export class UserController {
     const { email } = createDto;
     const entity = await this.service.findOneByEmail(email);
     if (entity) {
-      throw new HttpException('Conflict', HttpStatus.CONFLICT);
+      throw new ConflictException();
     }
 
     const entityNew = await this.service.create(createDto);
-    return entityNew;
+    return new UserSerializer(entityNew);
   }
 }
