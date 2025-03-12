@@ -1,4 +1,4 @@
-import { EntityId } from './entity-id';
+import { EntityId } from './entity.id';
 
 export interface Entity {
   _id: EntityId;

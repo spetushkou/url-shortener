@@ -1,8 +1,7 @@
-import { SuperheroSuperpower } from './SuperheroSuperpower';
+import { Entity } from '../../../common/entity/entity';
 
-export interface Superhero {
-  _id: unknown;
-  name: string;
-  superpower: SuperheroSuperpower;
-  humilityScore: number;
+export interface Superhero extends Entity {
+  originalUrl: string;
+  slug: string;
+  createdAt: Date;
 }

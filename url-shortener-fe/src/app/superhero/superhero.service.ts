@@ -1,9 +1,9 @@
-import { ExceptionParser } from '../../common/exception/ExceptionParser';
-import { HttpClient } from '../../common/httpClient/HttpClient';
-import { ResponseFindMany } from '../../common/response/response-find-many';
-import { Superhero } from './types/Superhero';
-import { SuperheroCreateDto } from './types/SuperheroCreateDto';
-import { SuperheroToken } from './types/SuperheroToken';
+import { ExceptionParser } from '../../common/exception/exception.parser';
+import { HttpClient } from '../../common/httpClient/http.client';
+import { ResponseFindMany } from '../../common/response/response.find.many';
+import { Superhero } from './types/superhero';
+import { SuperheroCreateDto } from './types/superhero.create.dto';
+import { SuperheroToken } from './types/superhero.token';
 
 const create = async (createDto: SuperheroCreateDto): Promise<Superhero> => {
   try {

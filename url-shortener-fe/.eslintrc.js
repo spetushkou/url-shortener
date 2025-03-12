@@ -61,7 +61,7 @@ module.exports = {
     'import/no-empty-named-blocks': 'warn',
     'import/no-extraneous-dependencies': 'warn',
     'import/no-mutable-exports': 'warn',
-    'import/no-unused-modules': ['warn', { missingExports: false, unusedExports: true }],
+    'import/no-unused-modules': ['off', { missingExports: false, unusedExports: true }],
     'import/no-absolute-path': 'off',
     'import/no-cycle': 'error',
     'import/no-self-import': 'error',

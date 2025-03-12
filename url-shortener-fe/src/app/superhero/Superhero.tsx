@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Exception } from '../../common/exception/Exception';
-import { ResponseFindMany } from '../../common/response/response-find-many';
-import './Superhero.css';
-import { SuperheroService } from './SuperheroService';
-import { Superhero as SuperheroType } from './types/Superhero.ts';
-import { SuperheroCreateDto } from './types/SuperheroCreateDto';
-import { SuperheroSuperpower } from './types/SuperheroSuperpower';
-import { SuperheroToken } from './types/SuperheroToken.ts';
+import { Exception } from '../../common/exception/exception.ts';
+import { ResponseFindMany } from '../../common/response/response.find.many.ts';
+import './superhero.css';
+import { SuperheroService } from './superhero.service.ts';
+import { SuperheroCreateDto } from './types/superhero.create.dto.ts';
+import { SuperheroSuperpower } from './types/superhero.superpower.ts';
+import { SuperheroToken } from './types/superhero.token.ts';
+import { Superhero as SuperheroType } from './types/superhero.ts';
 
 export function Superhero() {
   // http client to communicate with backend

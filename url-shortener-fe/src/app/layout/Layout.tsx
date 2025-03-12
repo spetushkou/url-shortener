@@ -1,5 +1,5 @@
-import { Superhero } from '../superhero/Superhero';
-import './Layout.css';
+import { Superhero } from '../superhero/superhero';
+import './layout.css';
 
 export function Layout() {
   return <Superhero />;
