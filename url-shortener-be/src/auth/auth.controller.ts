@@ -53,6 +53,17 @@ export class AuthController {
     res.send(userSerialized);
   }
 
+  @Post('signout')
+  @UseGuards(AuthorizeJwtGuard)
+  @HttpCode(HttpStatus.OK)
+  async signout(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
+    this.authService.deleteResponseAuthenticationCookie(res);
+
+    const userSerialized = Transformer.toPlain(new UserSerializer(user));
+
+    res.send(userSerialized);
+  }
+
   @Get('me')
   @UseInterceptors(ResponseControllerInterceptor)
   @UseGuards(AuthorizeJwtGuard)

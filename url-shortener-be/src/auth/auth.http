@@ -3,7 +3,7 @@
 @RESOURCE = /auth
 @URL = {{HOST}}{{RESOURCE}}
 @CONTENT_TYPE_JSON = Content-Type: application/json
-@AUTH_COOKIE = Cookie: Authentication=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2QxNzRhNTM5ZjVmZjhiZThlZjdlY2YiLCJpYXQiOjE3NDE3ODAxMzMsImV4cCI6MTc0MTc4MzczM30.BrMRUU43xy_f7udpJAkDf7d8yIGCzmEXnvIBQ67SmXs; Path=/; Expires=Tue, 18 Mar 2025 16:01:20 GMT; HttpOnly
+@AUTH_COOKIE = Cookie: Authentication=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NlZjM0NWVjZmViZTk4ODkzNmFkZWQiLCJpYXQiOjE3NDE3ODY1NTAsImV4cCI6MTc0MTc5MDE1MH0.eCXILKd7DKvtuihr-o8WS4c-1ClmWaaz0fGEGFJES3o; Path=/; Expires=Tue, 18 Mar 2025 09:28:20 GMT; HttpOnly
 
 ### signup
 POST {{URL}}/signup
@@ -22,6 +22,11 @@ POST {{URL}}/signin
   "email": "name1@company.com",
   "password": "raNdomPass1357!"
 }
+
+### signout
+POST {{URL}}/signout
+{{CONTENT_TYPE_JSON}}
+{{AUTH_COOKIE}}
 
 ### me
 GET {{URL}}/me

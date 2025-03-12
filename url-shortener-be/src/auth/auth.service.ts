@@ -53,4 +53,8 @@ export class AuthService {
 
     res.cookie(Cookie.Authentication, token, { expires, httpOnly: true });
   }
+
+  deleteResponseAuthenticationCookie(res: Response): void {
+    res.clearCookie(Cookie.Authentication);
+  }
 }
