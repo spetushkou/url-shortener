@@ -1,3 +1,4 @@
+import LinkIcon from '@mui/icons-material/Link';
 import { Box, Container, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -60,8 +61,9 @@ export function Url() {
     <Container maxWidth='sm'>
       {loading && <div>Loading...</div>}
       <Box sx={{ textAlign: 'center', marginTop: 4 }}>
-        <Typography variant='h4' gutterBottom>
+        <Typography sx={{ marginBottom: 6 }} variant='h4' gutterBottom>
           URL Shortener
+          <LinkIcon sx={{ marginLeft: 1 }} />
         </Typography>
         <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShort} />
         <UrlShortenerList urlCollection={urlCollection} />
