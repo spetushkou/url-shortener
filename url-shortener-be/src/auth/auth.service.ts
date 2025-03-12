@@ -8,6 +8,7 @@ import { User } from '../user/user';
 import { UserService } from '../user/user.service';
 import { AuthJwtPayload } from './jwt/auth.jwt.payload';
 import { AuthJwtService } from './jwt/auth.jwt.service';
+import { AuthPasswordService } from './password/auth.password.service';
 
 @Injectable()
 export class AuthService {
@@ -39,5 +40,19 @@ export class AuthService {
     const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, payload);
 
     res.cookie(Cookie.Authentication, token, { expires, httpOnly: true });
+  }
+
+  async verifyAuthentication(email: string, password: string): Promise<User | null> {
+    const user = await this.userService.findOneByEmail(email);
+    if (!user) {
+      return null;
+    }
+
+    const passwordValid = await AuthPasswordService.verify(password, user.password);
+    if (!passwordValid) {
+      return null;
+    }
+
+    return user;
   }
 }

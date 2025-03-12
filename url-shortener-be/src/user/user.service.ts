@@ -19,6 +19,10 @@ export class UserService {
     return this.repository.findOne(filterById);
   }
 
+  async findOneByEmail(email: string): Promise<User | null> {
+    return this.repository.findOne({ email });
+  }
+
   async create(createDto: UserCreateDto): Promise<User> {
     const passwordHashed = await AuthPasswordService.hash(createDto.password);
 
@@ -52,23 +56,5 @@ export class UserService {
   async delete(id: string): Promise<User | null> {
     const filterById = UtilMongo.getFilterById(id);
     return this.repository.delete(filterById);
-  }
-
-  async findOneByEmail(email: string): Promise<User | null> {
-    return this.repository.findOne({ email });
-  }
-
-  async verifyAuthentication(email: string, password: string): Promise<User | null> {
-    const user = await this.findOneByEmail(email);
-    if (!user) {
-      return null;
-    }
-
-    const passwordValid = await AuthPasswordService.verify(password, user.password);
-    if (!passwordValid) {
-      return null;
-    }
-
-    return user;
   }
 }
