@@ -1,7 +1,19 @@
-import { Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { Transformer } from '../common/transformer/transformer';
+import { UserCreateDto } from '../user/dto/user.create.dto';
 import { UserSerializer } from '../user/dto/user.serializer.dto';
 import { User } from '../user/user';
 import { AuthService } from './auth.service';
@@ -13,11 +25,28 @@ import { AuthorizeJwtGuard } from './guard/authorize.jwt.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post('signup')
+  @HttpCode(HttpStatus.CREATED)
+  async signup(@Body() userCreateDto: UserCreateDto, @Res({ passthrough: true }) res: Response): Promise<void> {
+    const isValid = await this.authService.verifySignup(userCreateDto);
+    if (!isValid) {
+      throw new BadRequestException();
+    }
+
+    const user = await this.authService.signup(userCreateDto);
+
+    await this.authService.setResponseAuthenticationCookie(user, res);
+
+    const userSerialized = Transformer.toPlain(new UserSerializer(user));
+
+    res.send(userSerialized);
+  }
+
+  @Post('signin')
   @UseGuards(AuthenticateLocalGuard)
   @HttpCode(HttpStatus.OK)
-  async login(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
-    await this.authService.login(user, res);
+  async signin(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
+    await this.authService.setResponseAuthenticationCookie(user, res);
 
     const userSerialized = Transformer.toPlain(new UserSerializer(user));
 

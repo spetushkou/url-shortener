@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { Cookie } from '../common/cookie/cookie';
 import { UtilMongo } from '../common/util/util.mongo';
+import { UserCreateDto } from '../user/dto/user.create.dto';
 import { User } from '../user/user';
 import { UserService } from '../user/user.service';
 import { AuthJwtPayload } from './jwt/auth.jwt.payload';
@@ -18,41 +19,38 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async signup(user: User, res: Response): Promise<void> {
-    const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
-
-    const payload: AuthJwtPayload = {
-      userId: UtilMongo.parseId(user._id),
-    };
-
-    const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, payload);
-
-    res.cookie(Cookie.Authentication, token, { expires, httpOnly: true });
+  async verifySignup(userCreateDto: UserCreateDto): Promise<boolean> {
+    const isUnique = await this.userService.validateUnique(userCreateDto.email);
+    return isUnique;
   }
 
-  async login(user: User, res: Response): Promise<void> {
-    const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
-
-    const payload: AuthJwtPayload = {
-      userId: UtilMongo.parseId(user._id),
-    };
-
-    const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, payload);
-
-    res.cookie(Cookie.Authentication, token, { expires, httpOnly: true });
+  async signup(userCreateDto: UserCreateDto): Promise<User> {
+    return this.userService.create(userCreateDto);
   }
 
-  async verifyAuthentication(email: string, password: string): Promise<User | null> {
-    const user = await this.userService.findOneByEmail(email);
+  async verifySignin(emailToVerify: string, passwordToVerify: string): Promise<User | null> {
+    const user = await this.userService.findOneByEmail(emailToVerify);
     if (!user) {
       return null;
     }
 
-    const passwordValid = await AuthPasswordService.verify(password, user.password);
+    const passwordValid = await AuthPasswordService.verify(passwordToVerify, user.password);
     if (!passwordValid) {
       return null;
     }
 
     return user;
+  }
+
+  async setResponseAuthenticationCookie(user: User, res: Response): Promise<void> {
+    const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
+
+    const authJwtPayload: AuthJwtPayload = {
+      userId: UtilMongo.parseId(user._id),
+    };
+
+    const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, authJwtPayload);
+
+    res.cookie(Cookie.Authentication, token, { expires, httpOnly: true });
   }
 }

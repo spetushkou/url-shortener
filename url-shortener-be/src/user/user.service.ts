@@ -57,4 +57,9 @@ export class UserService {
     const filterById = UtilMongo.getFilterById(id);
     return this.repository.delete(filterById);
   }
+
+  async validateUnique(email: string): Promise<boolean> {
+    const entity = await this.findOneByEmail(email);
+    return entity ? false : true;
+  }
 }

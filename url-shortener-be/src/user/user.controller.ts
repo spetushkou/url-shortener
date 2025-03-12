@@ -40,9 +40,8 @@ export class UserController {
 
   @Post()
   async create(@Body() createDto: UserCreateDto): Promise<User> {
-    const { email } = createDto;
-    const entity = await this.service.findOneByEmail(email);
-    if (entity) {
+    const isUnique = await this.service.validateUnique(createDto.email);
+    if (!isUnique) {
       throw new ConflictException();
     }
 

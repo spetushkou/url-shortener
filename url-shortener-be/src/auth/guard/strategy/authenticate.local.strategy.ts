@@ -22,12 +22,11 @@ export class AuthenticateLocalStrategy extends PassportStrategy(Strategy, AuthSt
    *
    */
   async validate(email: string, password: string): Promise<AuthResponse> {
-    const validatedUser = await this.authService.verifyAuthentication(email, password);
-
-    if (!validatedUser) {
+    const user = await this.authService.verifySignin(email, password);
+    if (!user) {
       throw new UnauthorizedException();
     }
 
-    return validatedUser;
+    return user;
   }
 }

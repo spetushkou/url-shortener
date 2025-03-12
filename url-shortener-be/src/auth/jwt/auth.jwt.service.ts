@@ -1,12 +1,12 @@
 import { JwtService } from '@nestjs/jwt';
 import { AuthJwtPayload } from './auth.jwt.payload';
 
-interface AuthJwtResponse {
+interface AuthJwt {
   token: string;
   expires: Date;
 }
 
-async function sign(jwtService: JwtService, expiration: number, payload: AuthJwtPayload): Promise<AuthJwtResponse> {
+async function sign(jwtService: JwtService, expiration: number, payload: AuthJwtPayload): Promise<AuthJwt> {
   const expires = new Date();
   expires.setSeconds(expires.getSeconds() + expiration);
 
