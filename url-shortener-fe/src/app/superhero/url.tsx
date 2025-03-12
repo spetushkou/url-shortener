@@ -1,20 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Exception } from '../../common/exception/exception.ts';
-import { ResponseFindMany } from '../../common/response/response.find.many.ts';
-import './superhero.css';
-import { SuperheroService } from './superhero.service.ts';
-import { SuperheroCreateDto } from './types/superhero.create.dto.ts';
-import { SuperheroSuperpower } from './types/superhero.superpower.ts';
-import { SuperheroToken } from './types/superhero.token.ts';
-import { Superhero as SuperheroType } from './types/superhero.ts';
+import { ResponseControllerMany } from '../../common/response/response.controller.many.ts';
+import { UrlCreateDto } from './types/url.create.dto.ts';
+import { UrlToken } from './types/url.token.ts';
+import { Url as SuperheroType } from './types/url.ts';
+import './url.css';
+import { SuperheroService } from './url.service.ts';
 
 export function Superhero() {
   // http client to communicate with backend
   const queryClient = useQueryClient();
 
   // component state for creating a new entity
-  const [superhero, setSuperhero] = useState<SuperheroCreateDto>({
+  const [superhero, setSuperhero] = useState<UrlCreateDto>({
     name: '',
     superpower: SuperheroSuperpower.WallCrawling,
     humilityScore: 1,
@@ -25,8 +24,8 @@ export function Superhero() {
     isLoading: superheroFindManyLoading,
     data: superheroFindManyResponse,
     error: superheroFindManyError,
-  } = useQuery<ResponseFindMany<SuperheroType>, Exception>(
-    [`${SuperheroToken.BaseUrl}`, 'findMany'],
+  } = useQuery<ResponseControllerMany<SuperheroType>, Exception>(
+    [`${UrlToken.BaseUrl}`, 'findMany'],
     async () => await SuperheroService.findMany(),
     {
       enabled: true,
@@ -36,11 +35,11 @@ export function Superhero() {
 
   // create entity handler
   const superheroSubmit = useMutation({
-    mutationFn: (createDto: SuperheroCreateDto) => {
-      return SuperheroService.create(createDto);
+    mutationFn: (createDto: UrlCreateDto) => {
+      return SuperheroService.createShort(createDto);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [`${SuperheroToken.BaseUrl}`, 'findMany'] });
+      queryClient.invalidateQueries({ queryKey: [`${UrlToken.BaseUrl}`, 'findMany'] });
     },
   });
   const superheroSubmitError = superheroSubmit.error as Exception;

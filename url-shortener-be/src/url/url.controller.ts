@@ -16,12 +16,6 @@ export class UrlController {
     return entities.map((entity) => new UrlSerializer(entity));
   }
 
-  @Post()
-  async createShort(@Body() createDto: UrlCreateDto): Promise<Url> {
-    const entity = await this.service.createShort(createDto);
-    return new UrlSerializer(entity);
-  }
-
   @Get(':slug')
   async findOneBySlug(@Param('slug') slug: string): Promise<Url> {
     const entity = await this.service.findOneBySlug(slug);
@@ -29,6 +23,12 @@ export class UrlController {
       throw new NotFoundException('URL not found');
     }
 
+    return new UrlSerializer(entity);
+  }
+
+  @Post()
+  async createShort(@Body() createDto: UrlCreateDto): Promise<Url> {
+    const entity = await this.service.createShort(createDto);
     return new UrlSerializer(entity);
   }
 }
