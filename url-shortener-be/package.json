@@ -17,6 +17,9 @@
     ".": "./dist/index.js"
   },
   "type": "commonjs",
+  "engines": {
+    "node": ">=20.17.0"
+  },
   "config": {
     "dir": {
       "bin": "./bin",
@@ -27,7 +30,6 @@
   },
   "scripts": {
     "start:dev": "nest start --watch -- -b swc",
-    "start:dev:docker": "docker compose up --build",
     "start:debug": "nest start --debug --watch",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "jest --no-cache --runInBand .unit. --coverage",
@@ -40,6 +42,7 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:errors": "eslint \"{src,apps,libs,test}/**/*.ts\" --quiet",
     "compile": "tsc --noEmit",
+    "prebuild": "rm -rf $npm_package_config_dir_dist",
     "build": "nest build",
     "prepare": "husky",
     "commit": "$npm_package_config_dir_bin/git/commit",
