@@ -1,3 +1,4 @@
+import { Box, Container, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Exception } from '../../common/exception/exception.ts';
@@ -7,10 +8,13 @@ import { UrlToken } from './types/url.token.ts';
 import { Url as UrlType } from './types/url.ts';
 import './url.css';
 import { UrlService } from './url.service.ts';
+import { UrlShortenerForm } from './url.shortener.form.tsx';
+import { UrlShortenerList } from './url.shortener.list.tsx';
 
 export function Url() {
   const queryClient = useQueryClient();
 
+  // url state
   const [url, setUrl] = useState<UrlCreateDto>({
     originalUrl: '',
   });
@@ -41,15 +45,6 @@ export function Url() {
   const urlSubmitError = createShortHandler.error as Exception;
   const urlSubmitLoading = createShortHandler.isLoading;
 
-  // form field input handler that updates the component state
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUrl((prevValue) => ({
-      ...prevValue,
-      [name]: value,
-    }));
-  };
-
   // submit handler
   const onCreateShort = () => {
     createShortHandler.mutate(url);
@@ -60,27 +55,16 @@ export function Url() {
   const error = urlFindManyError || urlSubmitError;
 
   return (
-    <>
+    <Container maxWidth='sm'>
       {loading && <div>Loading...</div>}
-
-      <h1>Add new URL</h1>
-
-      <div>
-        <div>
-          <label htmlFor='originalUrl'>Url: </label>
-          <input id='originalUrl' name='originalUrl' type='text' value={url.originalUrl} onChange={onInputChange} />
-        </div>
-        <div className='card'>
-          <button onClick={onCreateShort}>Submit a new URL!</button>
-          {error && <div className='error'>{error.message}</div>}
-        </div>
-      </div>
-      <h1>{"URL's"}</h1>
-      <div>
-        {urlCollection.map((url) => {
-          return <div key={url._id}>{`${url.originalUrl} with slug ${url.slug}`}</div>;
-        })}
-      </div>
-    </>
+      <Box sx={{ textAlign: 'center', marginTop: 4 }}>
+        <Typography variant='h4' gutterBottom>
+          URL Shortener
+        </Typography>
+        <UrlShortenerForm urlState={[url, setUrl]} onCreateShort={onCreateShort} />
+        <UrlShortenerList urlCollection={urlCollection} />
+      </Box>
+      {error && <div className='error'>{error.message}</div>}
+    </Container>
   );
 }
