@@ -32,7 +32,7 @@ const createShort = async (createDto: UrlCreateDto): Promise<ResponseControllerO
   }
 };
 
-export const SuperheroService = {
+export const UrlService = {
   findMany,
   createShort,
 };

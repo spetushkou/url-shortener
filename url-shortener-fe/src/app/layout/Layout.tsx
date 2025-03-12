@@ -1,6 +1,6 @@
-import { Superhero } from '../superhero/url';
+import { Url } from '../url/url';
 import './layout.css';
 
 export function Layout() {
-  return <Superhero />;
+  return <Url />;
 }
