@@ -19,6 +19,8 @@ export function Url() {
     originalUrl: '',
   });
 
+  console.log({ url });
+
   // findMany handler
   const {
     isLoading: urlFindManyLoading,
@@ -61,7 +63,7 @@ export function Url() {
         <Typography variant='h4' gutterBottom>
           URL Shortener
         </Typography>
-        <UrlShortenerForm urlState={[url, setUrl]} onCreateShort={onCreateShort} />
+        <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShort} />
         <UrlShortenerList urlCollection={urlCollection} />
       </Box>
       {error && <div className='error'>{error.message}</div>}
