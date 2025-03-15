@@ -2,7 +2,7 @@ import { Exclude, Expose } from 'class-transformer';
 import { Types } from 'mongoose';
 import { UtilMongo } from '../../util/util.mongo';
 
-export class MongoBaseSerialize {
+export class MongoBaseSerializeDto {
   @Exclude()
   _id: Types.ObjectId;
 

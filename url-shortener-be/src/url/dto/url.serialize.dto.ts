@@ -1,4 +1,4 @@
-import { MongoBaseSerialize as MongoBaseSerializeDto } from '../../common/database/mongo/mongo.base.serialize';
+import { MongoBaseSerializeDto } from '../../common/database/mongo/mongo.base.serialize.dto';
 import { Url } from '../url';
 
 export class UrlSerializeDto extends MongoBaseSerializeDto implements Url {
