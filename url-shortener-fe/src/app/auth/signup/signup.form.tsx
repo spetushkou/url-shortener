@@ -44,7 +44,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
 
   return (
     <Box>
-      <Typography variant='h4' gutterBottom>
+      <Typography variant='h5' gutterBottom>
         Sign Up
       </Typography>
       <form onSubmit={onSignup}>
@@ -73,16 +73,14 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           <Button type='submit' variant='contained' color='primary' disabled={signupLoading}>
             {signupLoading ? <CircularProgress size={24} color='secondary' /> : 'Sign Up'}
           </Button>
+          <Link to={RoutePath.Home} style={{ marginLeft: 10 }}>
+            <Button variant='outlined' color='secondary'>
+              Return Back
+            </Button>
+          </Link>
         </Box>
       </form>
       {signupError && <ExceptionInline error={signupError} />}
-      <Box sx={{ marginTop: 2 }}>
-        <Link to={RoutePath.Home} style={{ textDecoration: 'none' }}>
-          <Button variant='outlined' color='secondary'>
-            Return Back
-          </Button>
-        </Link>
-      </Box>
     </Box>
   );
 };
