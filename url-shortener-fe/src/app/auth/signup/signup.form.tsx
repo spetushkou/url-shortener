@@ -69,7 +69,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           onChange={(e) => setPassword(e.target.value)}
           sx={{ marginBottom: 2 }}
         />
-        <Box textAlign='center'>
+        <Box>
           <Button type='submit' variant='contained' color='primary' disabled={signupLoading}>
             {signupLoading ? <CircularProgress size={24} color='secondary' /> : 'Sign Up'}
           </Button>

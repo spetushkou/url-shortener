@@ -9,9 +9,9 @@ export function App() {
     <ExceptionHandler>
       <QueryProvider>
         <AuthContextProvider>
-          <Layout>
-            <Router />
-          </Layout>
+          <Router>
+            <Layout />
+          </Router>
         </AuthContextProvider>
       </QueryProvider>
     </ExceptionHandler>

@@ -1,16 +1,12 @@
-import { Box, Container } from '@mui/material';
-import { ReactNode } from 'react';
-import { Header } from '../header/header';
+import { Container } from '@mui/material';
+import { Content } from './content';
+import { Header } from './header';
 
-interface Props {
-  children: ReactNode;
-}
-
-export function Layout({ children }: Props) {
+export function Layout() {
   return (
     <Container>
       <Header />
-      <Box sx={{ textAlign: 'center', marginTop: 4 }}>{children}</Box>
+      <Content />
     </Container>
   );
 }

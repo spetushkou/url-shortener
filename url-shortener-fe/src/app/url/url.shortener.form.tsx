@@ -30,7 +30,7 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
         onChange={onOriginalUrlChange}
         sx={{ marginBottom: 2 }}
       />
-      <Box textAlign='center'>
+      <Box>
         <Button type='submit' variant='contained' color='primary' onClick={onCreateShort}>
           Shorten
         </Button>
