@@ -54,17 +54,16 @@ export function Url() {
   return (
     <Container maxWidth='sm'>
       {loading && <div>Loading...</div>}
+      <Link to='/signup' style={{ textDecoration: 'none' }}>
+        <Button variant='contained' color='primary'>
+          Sign Up
+        </Button>
+      </Link>
       <Box sx={{ textAlign: 'center', marginTop: 4 }}>
         <Typography sx={{ marginBottom: 6 }} variant='h4' gutterBottom>
           URL Shortener
           <LinkIcon sx={{ marginLeft: 1 }} />
         </Typography>
-
-        <Link to='/signup' style={{ textDecoration: 'none' }}>
-          <Button variant='contained' color='primary'>
-            Sign Up
-          </Button>
-        </Link>
 
         {/* {user ? (
           <Typography variant='h6' color='primary'>

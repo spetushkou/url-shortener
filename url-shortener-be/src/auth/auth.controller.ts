@@ -14,7 +14,7 @@ import { Response } from 'express';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { Transformer } from '../common/transformer/transformer';
 import { UserCreateDto } from '../user/dto/user.create.dto';
-import { UserSerializer } from '../user/dto/user.serializer.dto';
+import { UserSerialize } from '../user/dto/user.serialize.dto';
 import { User } from '../user/user';
 import { AuthService } from './auth.service';
 import { AuthUser } from './decorator/auth.user.decorator';
@@ -37,7 +37,7 @@ export class AuthController {
 
     await this.authService.setResponseAuthenticationCookie(user, res);
 
-    const userSerialized = Transformer.toPlain(new UserSerializer(user));
+    const userSerialized = Transformer.toPlain(new UserSerialize(user));
 
     res.send(userSerialized);
   }
@@ -48,7 +48,7 @@ export class AuthController {
   async signin(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
     await this.authService.setResponseAuthenticationCookie(user, res);
 
-    const userSerialized = Transformer.toPlain(new UserSerializer(user));
+    const userSerialized = Transformer.toPlain(new UserSerialize(user));
 
     res.send(userSerialized);
   }
@@ -59,7 +59,7 @@ export class AuthController {
   async signout(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
     this.authService.deleteResponseAuthenticationCookie(res);
 
-    const userSerialized = Transformer.toPlain(new UserSerializer(user));
+    const userSerialized = Transformer.toPlain(new UserSerialize(user));
 
     res.send(userSerialized);
   }
@@ -68,6 +68,6 @@ export class AuthController {
   @UseInterceptors(ResponseControllerInterceptor)
   @UseGuards(AuthorizeJwtGuard)
   async me(@AuthUser() user: User): Promise<User> {
-    return new UserSerializer(user);
+    return new UserSerialize(user);
   }
 }

@@ -1,7 +1,8 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/auth.context';
 
 interface Props {
   onSignupSuccess: (user: { email: string; id: string }) => void;
@@ -12,6 +13,8 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const { setUserEmail, setIsAuthenticated } = useContext(AuthContext)!;
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
