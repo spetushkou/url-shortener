@@ -9,11 +9,8 @@ interface Props {
 }
 
 export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
-  // form field input handler that updates the component state
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onOriginalUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    console.log({ name, value });
 
     setUrl((prevValue) => ({
       ...prevValue,
@@ -30,7 +27,7 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
         variant='outlined'
         fullWidth
         value={url.originalUrl}
-        onChange={onInputChange}
+        onChange={onOriginalUrlChange}
         sx={{ marginBottom: 2 }}
       />
       <Box textAlign='center'>

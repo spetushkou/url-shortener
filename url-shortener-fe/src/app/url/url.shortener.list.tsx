@@ -6,13 +6,11 @@ interface Props {
 
 export function UrlShortenerList({ urlCollection }: Props) {
   return (
-    <div>
+    <>
       <h1>{"URL's"}</h1>
-      <div>
-        {urlCollection.map((url) => {
-          return <div key={url._id}>{`${url.originalUrl} with slug ${url.slug}`}</div>;
-        })}
-      </div>
-    </div>
+      {urlCollection.map((url) => {
+        return <div key={url.id}>{`${url.originalUrl} with slug ${url.slug}`}</div>;
+      })}
+    </>
   );
 }

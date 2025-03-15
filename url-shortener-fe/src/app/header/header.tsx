@@ -1,11 +1,11 @@
 import LinkIcon from '@mui/icons-material/Link';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export function Header() {
   return (
-    <Typography sx={{ marginBottom: 6 }} variant='h4' gutterBottom>
-      URL Shortener
-      <LinkIcon sx={{ marginLeft: 1 }} />
-    </Typography>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 6 }}>
+      <Typography variant='h4'>URL Shortener</Typography>
+      <LinkIcon sx={{ marginLeft: 2, fontSize: 40 }} />
+    </Box>
   );
 }

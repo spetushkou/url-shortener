@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Exception } from '../../../common/exception/exception';
-import { ErrorInline } from '../../error/error.inline';
+import { ExceptionInline } from '../../../common/exception/exception.inline';
 import { RoutePath } from '../../router/route.path';
 import { AuthService } from '../auth.service';
 import { AuthContext } from '../context/auth.context';
@@ -43,7 +43,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
   };
 
   return (
-    <Box sx={{ textAlign: 'center', marginTop: 4 }}>
+    <Box>
       <Typography variant='h4' gutterBottom>
         Sign Up
       </Typography>
@@ -75,7 +75,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           </Button>
         </Box>
       </form>
-      {signupError && <ErrorInline error={signupError} />}
+      {signupError && <ExceptionInline error={signupError} />}
       <Box sx={{ marginTop: 2 }}>
         <Link to={RoutePath.Home} style={{ textDecoration: 'none' }}>
           <Button variant='outlined' color='secondary'>

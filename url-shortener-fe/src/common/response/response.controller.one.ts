@@ -1,5 +1,5 @@
-import { EntityId } from '../entity/entity.id';
+import { Entity } from '../entity/entity';
 
-export interface ResponseControllerOne<T extends { id: EntityId }> {
+export interface ResponseControllerOne<T extends Entity> {
   data: T;
 }
