@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { UserCreateDto } from './dto/user.create.dto';
-import { UserSerialize } from './dto/user.serialize.dto';
+import { UserSerializeDto } from './dto/user.serialize.dto';
 import { UserUpdateDto } from './dto/user.update.dto';
 import { User } from './user';
 import { UserService } from './user.service';
@@ -25,7 +25,7 @@ export class UserController {
   @Get()
   async findMany(): Promise<User[]> {
     const entities = await this.service.findMany();
-    return entities.map((entity) => new UserSerialize(entity));
+    return entities.map((entity) => new UserSerializeDto(entity));
   }
 
   @Get(':id')
@@ -35,7 +35,7 @@ export class UserController {
       throw new NotFoundException();
     }
 
-    return new UserSerialize(entity);
+    return new UserSerializeDto(entity);
   }
 
   @Post()
@@ -46,7 +46,7 @@ export class UserController {
     }
 
     const entityCreated = await this.service.create(createDto);
-    return new UserSerialize(entityCreated);
+    return new UserSerializeDto(entityCreated);
   }
 
   @Patch(':id')
@@ -61,7 +61,7 @@ export class UserController {
       throw new NotFoundException();
     }
 
-    return new UserSerialize(entityUpdated);
+    return new UserSerializeDto(entityUpdated);
   }
 
   @Delete(':id')
@@ -76,6 +76,6 @@ export class UserController {
       throw new NotFoundException();
     }
 
-    return new UserSerialize(entityDeleted);
+    return new UserSerializeDto(entityDeleted);
   }
 }
