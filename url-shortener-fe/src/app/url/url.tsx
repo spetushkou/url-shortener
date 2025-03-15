@@ -1,10 +1,11 @@
-import LinkIcon from '@mui/icons-material/Link';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Exception } from '../../common/exception/exception.ts';
 import { ResponseControllerMany } from '../../common/response/response.controller.many.ts';
+import { AuthBar } from '../auth/auth.bar.tsx';
+import { ErrorInline } from '../error/error.inline.tsx';
+import { Header } from '../header/header.tsx';
 import { UrlCreateDto } from './types/url.create.dto.ts';
 import { UrlToken } from './types/url.token.ts';
 import { Url as UrlType } from './types/url.ts';
@@ -54,16 +55,11 @@ export function Url() {
   return (
     <Container maxWidth='sm'>
       {loading && <div>Loading...</div>}
-      <Link to='/signup' style={{ textDecoration: 'none' }}>
-        <Button variant='contained' color='primary'>
-          Sign Up
-        </Button>
-      </Link>
+
       <Box sx={{ textAlign: 'center', marginTop: 4 }}>
-        <Typography sx={{ marginBottom: 6 }} variant='h4' gutterBottom>
-          URL Shortener
-          <LinkIcon sx={{ marginLeft: 1 }} />
-        </Typography>
+        <Header />
+
+        <AuthBar />
 
         {/* {user ? (
           <Typography variant='h6' color='primary'>
@@ -74,7 +70,7 @@ export function Url() {
         <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
         <UrlShortenerList urlCollection={urlCollection} />
       </Box>
-      {error && <div className='error'>{error.message}</div>}
+      {error && <ErrorInline error={error} />}
     </Container>
   );
 }
