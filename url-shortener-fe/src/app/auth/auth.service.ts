@@ -1,18 +1,17 @@
 import { ExceptionParser } from '../../common/exception/exception.parser';
 import { HttpClient } from '../../common/httpClient/http.client';
-import { ResponseControllerOne } from '../../common/response/response.controller.one';
-import { Url } from './types/url';
-import { UrlCreateDto } from './types/url.create.dto';
-import { UrlToken } from './types/url.token';
+import { AuthToken } from './types/auth.token';
+import { UserCreateDto } from './user/types/user.create.dto';
+import { UserSerializeDto } from './user/types/user.serialize.dto';
 
-const signup = async (createDto: UrlCreateDto): Promise<ResponseControllerOne<Url>> => {
+const signup = async (createDto: UserCreateDto): Promise<UserSerializeDto> => {
   try {
-    const endpoint = `/${UrlToken.BaseUrl}`;
+    const endpoint = `/${AuthToken.BaseUrl}`;
 
-    const response = await HttpClient().post<ResponseControllerOne<Url>>(endpoint, createDto);
+    const response = await HttpClient().post<UserSerializeDto>(endpoint, createDto);
     const { data } = response;
 
-    return { data: data.data };
+    return data;
   } catch (error) {
     return Promise.reject(ExceptionParser.parse(error));
   }

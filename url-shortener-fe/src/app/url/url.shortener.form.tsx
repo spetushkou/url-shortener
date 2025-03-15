@@ -24,7 +24,6 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
   return (
     <div>
       <TextField
-        sx={{ marginBottom: 2 }}
         id='originalUrl'
         name='originalUrl'
         label='Enter the URL to shorten'
@@ -32,6 +31,7 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
         fullWidth
         value={url.originalUrl}
         onChange={onInputChange}
+        sx={{ marginBottom: 2 }}
       />
       <Box textAlign='center'>
         <Button type='submit' variant='contained' color='primary' onClick={onCreateShort}>

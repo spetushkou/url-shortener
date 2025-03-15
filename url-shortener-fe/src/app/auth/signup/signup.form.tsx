@@ -1,49 +1,45 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Exception } from '../../../common/exception/exception';
+import { ErrorInline } from '../../error/error.inline';
+import { RoutePath } from '../../router/route.path';
+import { AuthService } from '../auth.service';
 import { AuthContext } from '../context/auth.context';
+import { UserCreateDto } from '../user/types/user.create.dto';
 
 interface Props {
   onSignupSuccess: (user: { email: string; id: string }) => void;
 }
 
 export const SignupForm = ({ onSignupSuccess }: Props) => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const { setUserEmail, setIsAuthenticated } = useContext(AuthContext)!;
 
-  const onSubmit = async (event: React.FormEvent) => {
+  const signupHandler = useMutation({
+    mutationFn: (createDto: UserCreateDto) => {
+      return AuthService.signup(createDto);
+    },
+    onSettled: (data) => {
+      console.log({ data });
+      // navigate('/');
+    },
+  });
+  const signupError = signupHandler.error as Exception;
+  const signupLoading = signupHandler.isLoading;
+
+  const onSignup = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await axios.post(
-        '{{URL}}/signup',
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        },
-      );
-
-      const userData = response.data;
-      onSignupSuccess(userData);
-    } catch {
-      setError('Sign-up failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    signupHandler.mutate({
+      email,
+      password,
+    });
   };
 
   return (
@@ -51,7 +47,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
       <Typography variant='h4' gutterBottom>
         Sign Up
       </Typography>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSignup}>
         <TextField
           id='email'
           name='email'
@@ -74,18 +70,14 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           sx={{ marginBottom: 2 }}
         />
         <Box textAlign='center'>
-          <Button type='submit' variant='contained' color='primary' disabled={loading}>
-            {loading ? <CircularProgress size={24} color='secondary' /> : 'Sign Up'}
+          <Button type='submit' variant='contained' color='primary' disabled={signupLoading}>
+            {signupLoading ? <CircularProgress size={24} color='secondary' /> : 'Sign Up'}
           </Button>
         </Box>
-        {error && (
-          <Typography color='error' sx={{ marginTop: 2 }}>
-            {error}
-          </Typography>
-        )}
       </form>
+      {signupError && <ErrorInline error={signupError} />}
       <Box sx={{ marginTop: 2 }}>
-        <Link to='/' style={{ textDecoration: 'none' }}>
+        <Link to={RoutePath.Home} style={{ textDecoration: 'none' }}>
           <Button variant='outlined' color='secondary'>
             Return Back
           </Button>

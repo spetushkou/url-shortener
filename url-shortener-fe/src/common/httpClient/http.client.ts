@@ -7,7 +7,7 @@ export const HttpClient = (): AxiosInstance => {
     headers: {
       'Content-Type': 'application/json',
     },
-    withCredentials: false,
+    withCredentials: true,
   });
   return http;
 };

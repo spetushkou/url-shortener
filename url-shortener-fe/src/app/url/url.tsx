@@ -33,7 +33,7 @@ export function Url() {
   );
   const urlCollection = urlFindManyResponse?.data ?? [];
 
-  const createShortHandler = useMutation({
+  const createShortUrlHandler = useMutation({
     mutationFn: (createDto: UrlCreateDto) => {
       return UrlService.createShort(createDto);
     },
@@ -41,11 +41,11 @@ export function Url() {
       queryClient.invalidateQueries({ queryKey: [`${UrlToken.BaseUrl}`, 'findMany'] });
     },
   });
-  const urlSubmitError = createShortHandler.error as Exception;
-  const urlSubmitLoading = createShortHandler.isLoading;
+  const urlSubmitError = createShortUrlHandler.error as Exception;
+  const urlSubmitLoading = createShortUrlHandler.isLoading;
 
   const onCreateShortUrl = () => {
-    createShortHandler.mutate(url);
+    createShortUrlHandler.mutate(url);
   };
 
   const loading = urlFindManyLoading || urlSubmitLoading;
