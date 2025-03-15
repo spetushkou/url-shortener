@@ -1,7 +1,8 @@
 import LinkIcon from '@mui/icons-material/Link';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Exception } from '../../common/exception/exception.ts';
 import { ResponseControllerMany } from '../../common/response/response.controller.many.ts';
 import { UrlCreateDto } from './types/url.create.dto.ts';
@@ -15,14 +16,10 @@ import { UrlShortenerList } from './url.shortener.list.tsx';
 export function Url() {
   const queryClient = useQueryClient();
 
-  // url state
   const [url, setUrl] = useState<UrlCreateDto>({
     originalUrl: '',
   });
 
-  console.log({ url });
-
-  // findMany handler
   const {
     isLoading: urlFindManyLoading,
     data: urlFindManyResponse,
@@ -36,7 +33,6 @@ export function Url() {
   );
   const urlCollection = urlFindManyResponse?.data ?? [];
 
-  // createShort handler
   const createShortHandler = useMutation({
     mutationFn: (createDto: UrlCreateDto) => {
       return UrlService.createShort(createDto);
@@ -48,12 +44,10 @@ export function Url() {
   const urlSubmitError = createShortHandler.error as Exception;
   const urlSubmitLoading = createShortHandler.isLoading;
 
-  // submit handler
-  const onCreateShort = () => {
+  const onCreateShortUrl = () => {
     createShortHandler.mutate(url);
   };
 
-  // component loading and error states
   const loading = urlFindManyLoading || urlSubmitLoading;
   const error = urlFindManyError || urlSubmitError;
 
@@ -65,7 +59,20 @@ export function Url() {
           URL Shortener
           <LinkIcon sx={{ marginLeft: 1 }} />
         </Typography>
-        <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShort} />
+
+        <Link to='/signup' style={{ textDecoration: 'none' }}>
+          <Button variant='contained' color='primary'>
+            Sign Up
+          </Button>
+        </Link>
+
+        {/* {user ? (
+          <Typography variant='h6' color='primary'>
+            Welcome, {user.email}!
+          </Typography>
+        ) : null} */}
+
+        <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
         <UrlShortenerList urlCollection={urlCollection} />
       </Box>
       {error && <div className='error'>{error.message}</div>}
