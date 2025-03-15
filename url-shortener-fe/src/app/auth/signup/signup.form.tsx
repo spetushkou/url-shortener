@@ -54,6 +54,8 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           label='Email'
           variant='outlined'
           fullWidth
+          required
+          type='email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           sx={{ marginBottom: 2 }}
@@ -64,6 +66,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           label='Password'
           variant='outlined'
           fullWidth
+          required
           type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}

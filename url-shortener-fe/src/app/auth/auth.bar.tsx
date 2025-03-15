@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RoutePath } from '../router/route.path';
 
 {
@@ -11,13 +11,19 @@ import { RoutePath } from '../router/route.path';
 }
 
 export function AuthBar() {
+  const location = useLocation();
+
+  const displaySignup = location.pathname !== RoutePath.Signup;
+
   return (
     <Box>
-      <Link to={RoutePath.Signup} style={{ textDecoration: 'none' }}>
-        <Button variant='contained' color='primary'>
-          Sign Up
-        </Button>
-      </Link>
+      {displaySignup && (
+        <Link to={RoutePath.Signup} style={{ textDecoration: 'none' }}>
+          <Button variant='contained' color='primary'>
+            Sign Up
+          </Button>
+        </Link>
+      )}
     </Box>
   );
 }
