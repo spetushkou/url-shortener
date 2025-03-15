@@ -52,6 +52,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           id='email'
           name='email'
           label='Email'
+          helperText='Try: name1@company.com'
           variant='outlined'
           fullWidth
           required
@@ -64,6 +65,7 @@ export const SignupForm = ({ onSignupSuccess }: Props) => {
           id='password'
           name='password'
           label='Password'
+          helperText='Try: raNdomPass1357!'
           variant='outlined'
           fullWidth
           required
