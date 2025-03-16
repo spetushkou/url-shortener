@@ -2,16 +2,15 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Box, Button, Typography } from '@mui/material';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { UrlSerializeDto } from '../types/url.serialize.dto';
 
 interface Props {
-  url: UrlSerializeDto;
+  shortenUrl: string;
 }
 
-export function UrlShortenerConfirm({ url }: Props) {
+export function UrlShortenerConfirm({ shortenUrl }: Props) {
   const onCopyUrl = useCallback(() => {
-    navigator.clipboard.writeText(url.slug);
-  }, [url.slug]);
+    navigator.clipboard.writeText(shortenUrl);
+  }, [shortenUrl]);
 
   return (
     <Box>
@@ -25,8 +24,8 @@ export function UrlShortenerConfirm({ url }: Props) {
           alignItems: 'center',
         }}
       >
-        <Link to={url.slug} style={{ marginRight: 40 }}>
-          {url.slug}
+        <Link to={shortenUrl} style={{ marginRight: 40 }}>
+          {shortenUrl}
         </Link>
         <Button variant='outlined' color='secondary' startIcon={<ContentCopyIcon />} onClick={onCopyUrl}>
           Copy

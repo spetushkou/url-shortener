@@ -66,7 +66,7 @@ export function Url() {
       {loading && <ProgressOverflow message='Loading...' />}
       <Header header='Enter the URL to shorten' />
       <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
-      {shortenUrl && <UrlShortenerConfirm url={shortenUrl} />}
+      {shortenUrl && <UrlShortenerConfirm shortenUrl={shortenUrl.shortenUrl} />}
       {error && <ExceptionInline error={error} />}
     </Box>
   );
