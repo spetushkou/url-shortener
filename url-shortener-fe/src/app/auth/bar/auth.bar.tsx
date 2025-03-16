@@ -42,13 +42,18 @@ export function AuthBar() {
     >
       {displayUserId && <Typography sx={{ marginRight: 2 }}>Welcome, {userEmail}</Typography>}
       {displaySignout && (
-        <Link to={RouterPath.Signup} style={{ textDecoration: 'none' }} onClick={onSignout}>
+        <Link to={RouterPath.Signup} style={{ textDecoration: 'none', marginRight: 10 }} onClick={onSignout}>
           Sign out
         </Link>
       )}
       {displaySignup && (
-        <Link to={RouterPath.Signup} style={{ textDecoration: 'none' }}>
+        <Link to={RouterPath.Signup} style={{ textDecoration: 'none', marginRight: 10 }}>
           Sign up
+        </Link>
+      )}
+      {displaySignin && (
+        <Link to={RouterPath.Signin} style={{ textDecoration: 'none', marginRight: 10 }}>
+          Sign in
         </Link>
       )}
     </Box>
