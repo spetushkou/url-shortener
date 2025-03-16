@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { ExceptionInline } from '../../common/exception/exception.inline.tsx';
 import { Exception } from '../../common/exception/exception.ts';
 import { ResponseControllerMany } from '../../common/response/response.controller.many.ts';
-import { UrlShortener } from './shortener/url.shortener.tsx';
+import { UrlShortenerConfirm } from './shortenerConfirm/url.shortener.confirm.tsx';
+import { UrlShortenerForm } from './shortenerForm/url.shortener.form.tsx';
 import { UrlCreateDto } from './types/url.create.dto.ts';
+import { UrlSerializeDto } from './types/url.serialize.dto.ts';
 import { UrlToken } from './types/url.token.ts';
 import { Url as UrlType } from './types/url.ts';
 import './url.css';
@@ -17,6 +19,8 @@ export function Url() {
   const [url, setUrl] = useState<UrlCreateDto>({
     originalUrl: '',
   });
+
+  const [shortenUrl, setShortenUrl] = useState<UrlSerializeDto | null>(null);
 
   const {
     isLoading: urlLoading,
@@ -35,7 +39,13 @@ export function Url() {
     mutationFn: (createDto: UrlCreateDto) => {
       return UrlService.createShort(createDto);
     },
-    onSettled: () => {
+    onSettled: (data) => {
+      if (!data) {
+        return;
+      }
+
+      setShortenUrl(data.data ?? null);
+
       queryClient.invalidateQueries({ queryKey: [`${UrlToken.BaseUrl}`, 'findMany'] });
     },
   });
@@ -55,7 +65,8 @@ export function Url() {
       <Typography variant='h5' gutterBottom>
         Enter the URL to shorten
       </Typography>
-      <UrlShortener url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
+      <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
+      {shortenUrl && <UrlShortenerConfirm url={shortenUrl} />}
       {error && <ExceptionInline error={error} />}
     </Box>
   );

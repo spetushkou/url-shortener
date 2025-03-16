@@ -8,7 +8,7 @@ interface Props {
   onCreateShort: () => void;
 }
 
-export function UrlShortener({ url, setUrl, onCreateShort }: Props) {
+export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
   const onOriginalUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
