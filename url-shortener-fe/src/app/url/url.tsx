@@ -11,7 +11,6 @@ import { UrlShortenerForm } from './shortenerForm/url.shortener.form.tsx';
 import { UrlCreateDto } from './types/url.create.dto.ts';
 import { UrlSerializeDto } from './types/url.serialize.dto.ts';
 import { UrlToken } from './types/url.token.ts';
-import { Url as UrlType } from './types/url.ts';
 import './url.css';
 import { UrlService } from './url.service.ts';
 
@@ -28,7 +27,7 @@ export function Url() {
     isLoading: urlLoading,
     data: urlResponse,
     error: urlError,
-  } = useQuery<ResponseControllerMany<UrlType>, Exception>(
+  } = useQuery<ResponseControllerMany<UrlSerializeDto>, Exception>(
     [`${UrlToken.BaseUrl}`, 'findMany'],
     async () => await UrlService.findMany(),
     {

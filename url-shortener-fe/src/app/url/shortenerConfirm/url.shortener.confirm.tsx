@@ -24,7 +24,7 @@ export function UrlShortenerConfirm({ shortenUrl }: Props) {
           alignItems: 'center',
         }}
       >
-        <Link to={shortenUrl} style={{ marginRight: 40 }}>
+        <Link to={shortenUrl} target='_blank' style={{ marginRight: 40 }}>
           {shortenUrl}
         </Link>
         <Button variant='outlined' color='secondary' startIcon={<ContentCopyIcon />} onClick={onCopyUrl}>

@@ -19,6 +19,19 @@ const findMany = async (): Promise<ResponseControllerMany<UrlSerializeDto>> => {
   }
 };
 
+const findOneBySlug = async (slug: string): Promise<ResponseControllerOne<UrlSerializeDto>> => {
+  try {
+    const endpoint = `/${UrlToken.BaseUrl}/${slug}`;
+
+    const response = await HttpClient().get<ResponseControllerOne<UrlSerializeDto>>(endpoint);
+    const { data } = response;
+
+    return { data: data.data };
+  } catch (error) {
+    return Promise.reject(ExceptionParser.parse(error));
+  }
+};
+
 const createShort = async (createDto: UrlCreateDto): Promise<ResponseControllerOne<UrlSerializeDto>> => {
   try {
     const endpoint = `/${UrlToken.BaseUrl}`;
@@ -34,5 +47,6 @@ const createShort = async (createDto: UrlCreateDto): Promise<ResponseControllerO
 
 export const UrlService = {
   findMany,
+  findOneBySlug,
   createShort,
 };
