@@ -12,6 +12,7 @@ export function AuthBar() {
   const { userEmail, isAuthenticated } = useContext(AuthContext);
 
   const displaySignup = location.pathname !== RoutePath.Signup && !isAuthenticated;
+  const displaySignin = location.pathname !== RoutePath.Signin && !isAuthenticated;
   const displaySignout = isAuthenticated;
   const displayUserId = isAuthenticated;
 

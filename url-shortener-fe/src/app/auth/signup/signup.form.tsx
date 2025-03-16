@@ -46,7 +46,7 @@ export const SignupForm = () => {
   return (
     <Box>
       <Typography variant='h5' gutterBottom>
-        Sign Up
+        Signup
       </Typography>
       <form onSubmit={onSignup}>
         <TextField
@@ -79,10 +79,8 @@ export const SignupForm = () => {
           <Button type='submit' variant='contained' color='primary' disabled={signupLoading}>
             {signupLoading ? <CircularProgress size={24} color='secondary' /> : 'Sign Up'}
           </Button>
-          <Link to={RoutePath.Home} style={{ marginLeft: 10 }}>
-            <Button variant='outlined' color='secondary'>
-              Return Back
-            </Button>
+          <Link to={RoutePath.Home} style={{ textDecoration: 'none', marginLeft: 10 }}>
+            Return Back
           </Link>
         </Box>
       </form>
