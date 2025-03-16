@@ -1,4 +1,4 @@
-import { Url } from './types/url';
+import { Url } from '../types/url';
 
 interface Props {
   urlCollection: Url[];
