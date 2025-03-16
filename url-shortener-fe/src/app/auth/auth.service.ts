@@ -6,7 +6,7 @@ import { UserSerializeDto } from './user/types/user.serialize.dto';
 
 const signup = async (createDto: UserCreateDto): Promise<UserSerializeDto> => {
   try {
-    const endpoint = `/${AuthToken.BaseUrl}`;
+    const endpoint = `/${AuthToken.BaseUrl}/signup`;
 
     const response = await HttpClient().post<UserSerializeDto>(endpoint, createDto);
     const { data } = response;

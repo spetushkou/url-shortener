@@ -1,6 +1,6 @@
 import {
-  BadRequestException,
   Body,
+  ConflictException,
   Controller,
   Get,
   HttpCode,
@@ -28,9 +28,11 @@ export class AuthController {
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
   async signup(@Body() userCreateDto: UserCreateDto, @Res({ passthrough: true }) res: Response): Promise<void> {
-    const isValid = await this.authService.verifySignup(userCreateDto);
-    if (!isValid) {
-      throw new BadRequestException();
+    const isUnique = await this.authService.verifyUniqueSignup(userCreateDto);
+    if (!isUnique) {
+      throw new ConflictException(
+        'This email address is already associated with an account. Please try logging in or use a different email address.',
+      );
     }
 
     const user = await this.authService.signup(userCreateDto);

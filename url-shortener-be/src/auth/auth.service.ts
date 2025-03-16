@@ -19,9 +19,8 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async verifySignup(userCreateDto: UserCreateDto): Promise<boolean> {
-    const isUnique = await this.userService.validateUnique(userCreateDto.email);
-    return isUnique;
+  async verifyUniqueSignup(userCreateDto: UserCreateDto): Promise<boolean> {
+    return this.userService.validateUnique(userCreateDto.email);
   }
 
   async signup(userCreateDto: UserCreateDto): Promise<User> {

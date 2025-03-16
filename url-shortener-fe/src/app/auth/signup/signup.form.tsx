@@ -9,25 +9,26 @@ import { AuthService } from '../auth.service';
 import { AuthContext } from '../context/auth.context';
 import { UserCreateDto } from '../user/types/user.create.dto';
 
-interface Props {
-  onSignupSuccess: (user: { email: string; id: string }) => void;
-}
-
-export const SignupForm = ({ onSignupSuccess }: Props) => {
+export const SignupForm = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setUserEmail, setIsAuthenticated } = useContext(AuthContext)!;
+  const { setUserEmail, setIsAuthenticated } = useContext(AuthContext);
 
   const signupHandler = useMutation({
     mutationFn: (createDto: UserCreateDto) => {
       return AuthService.signup(createDto);
     },
     onSettled: (data) => {
-      console.log({ data });
-      // navigate('/');
+      if (!data) {
+        return;
+      }
+
+      setUserEmail(data.email);
+      setIsAuthenticated(true);
+      navigate(RoutePath.Home);
     },
   });
   const signupError = signupHandler.error as Exception;
