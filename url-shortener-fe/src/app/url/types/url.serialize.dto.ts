@@ -5,5 +5,6 @@ import { Url } from './url';
 export class UrlSerializeDto extends EntityBaseSerializeDto implements Omit<Url, EntityId> {
   originalUrl: string;
   slug: string;
+  shortenUrl: string;
   createdAt: Date;
 }
