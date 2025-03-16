@@ -23,18 +23,15 @@ export const AuthContextProvider = ({ children }: Props) => {
 
   const [cookies] = useCookies<Cookie.Authentication, CookieValues>([Cookie.Authentication]);
 
-  const { data: meResponse, error: meError } = useQuery<ResponseControllerOne<UserSerializeDto>, Exception>(
-    [`${AuthToken.BaseUrl}`, 'me'],
+  const { data: meResponse } = useQuery<ResponseControllerOne<UserSerializeDto>, Exception>(
+    [`${AuthToken.BaseUrl}`, 'me', cookies.Authentication],
     async () => await AuthService.me(),
     {
-      enabled: true,
+      enabled: !!cookies.Authentication,
+      retry: false,
     },
   );
   const meData = meResponse?.data ?? null;
-
-  if (meError) {
-    console.error(meError);
-  }
 
   useEffect(() => {
     setIsAuthenticated(!!cookies.Authentication);

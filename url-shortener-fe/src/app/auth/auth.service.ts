@@ -32,11 +32,11 @@ const signin = async (userDto: UserDto): Promise<UserSerializeDto> => {
   }
 };
 
-const signout = async (): Promise<ResponseControllerOne<UserSerializeDto>> => {
+const signout = async (): Promise<void> => {
   try {
     const endpoint = `/${AuthToken.BaseUrl}/signout`;
 
-    const response = await HttpClient().post<ResponseControllerOne<UserSerializeDto>>(endpoint);
+    const response = await HttpClient().post<void>(endpoint);
     const { data } = response;
 
     return data;

@@ -3,18 +3,16 @@ import { AuthJwtPayload } from './auth.jwt.payload';
 
 interface AuthJwt {
   token: string;
-  expires: Date;
+  maxAge: number;
 }
 
-async function sign(jwtService: JwtService, expiration: number, payload: AuthJwtPayload): Promise<AuthJwt> {
-  const expires = new Date();
-  expires.setSeconds(expires.getSeconds() + expiration);
-
+async function sign(jwtService: JwtService, expirationSeconds: number, payload: AuthJwtPayload): Promise<AuthJwt> {
+  const maxAge = expirationSeconds * 1000;
   const token = await jwtService.signAsync(payload);
 
   return {
     token,
-    expires,
+    maxAge,
   };
 }
 

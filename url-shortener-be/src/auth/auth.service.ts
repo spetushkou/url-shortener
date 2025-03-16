@@ -42,23 +42,23 @@ export class AuthService {
   }
 
   async setResponseAuthenticationCookie(user: User, res: Response): Promise<void> {
-    const expiration = this.configService.getOrThrow<number>('JWT_EXPIRATION');
+    const expirationSeconds = this.configService.getOrThrow<number>('JWT_EXPIRATION');
 
     const authJwtPayload: AuthJwtPayload = {
       userId: UtilMongo.parseId(user._id),
     };
 
-    const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, authJwtPayload);
+    const { token, maxAge } = await AuthJwtService.sign(this.jwtService, expirationSeconds, authJwtPayload);
 
     res.cookie(Cookie.Authentication, token, {
       httpOnly: false, // for the case to obtain auth related data on FE (i.e. user name, user roles, etc.)
       secure: this.configService.get<string>('NODE_ENV') === 'production',
       sameSite: 'strict',
-      expires,
+      maxAge,
     });
   }
 
-  deleteResponseAuthenticationCookie(res: Response): void {
+  async deleteResponseAuthenticationCookie(res: Response): Promise<void> {
     res.clearCookie(Cookie.Authentication);
   }
 }

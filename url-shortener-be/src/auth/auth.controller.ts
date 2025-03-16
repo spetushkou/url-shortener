@@ -56,14 +56,9 @@ export class AuthController {
   }
 
   @Post('signout')
-  @UseGuards(AuthorizeJwtGuard)
-  @HttpCode(HttpStatus.OK)
-  async signout(@AuthUser() user: User, @Res({ passthrough: true }) res: Response): Promise<void> {
-    this.authService.deleteResponseAuthenticationCookie(res);
-
-    const userSerialized = Transformer.toPlain(new UserSerializeDto(user));
-
-    res.send(userSerialized);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async signout(@Res({ passthrough: true }) res: Response): Promise<void> {
+    await this.authService.deleteResponseAuthenticationCookie(res);
   }
 
   @Get('me')

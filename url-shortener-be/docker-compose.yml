@@ -29,7 +29,8 @@ services:
       - DATABASE_URL=mongodb://admin:admin@url-shortener-db:27017/url_shortener?authSource=admin
       - URL_SLUG_PREFIX=https://short.ly/
       - JWT_SECRET=some_secret
-      - JWT_EXPIRATION=3600
+      # - JWT_EXPIRATION=3600
+      - JWT_EXPIRATION=20
     ports:
       - '3000:3000'
     volumes:
