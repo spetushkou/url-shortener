@@ -9,6 +9,9 @@ export class Url extends MongoDocument {
   @Prop({ required: true, unique: true })
   slug: string;
 
+  @Prop({ required: true })
+  shortenUrl: string;
+
   @Prop({ default: Date.now })
   createdAt: Date;
 }

@@ -10,7 +10,7 @@ POST {{URL}}/signup
 {{CONTENT_TYPE_JSON}}
 
 {
-  "email": "name5@company.com",
+  "email": "name1@company.com",
   "password": "raNdomPass1357!"
 }
 

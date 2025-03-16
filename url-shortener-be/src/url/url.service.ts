@@ -25,20 +25,27 @@ export class UrlService {
       return entity;
     }
 
+    const shortenBaseUrl = this.getShortenBaseUrl();
+    const slug = this.generateSlug(originalUrl);
+    const shortenUrl = `${shortenBaseUrl}${slug}`;
+
     const createRepositoryDto: UrlCreateRepositoryDto = {
       ...createDto,
-      slug: this.generateSlug(originalUrl),
+      slug,
+      shortenUrl,
     };
 
     return this.repository.create(createRepositoryDto);
   }
 
   private generateSlug(originalUrl: string): string {
-    const prefix = this.configService.get<string>('URL_SLUG_PREFIX');
     const hash = crypto.createHash('sha256').update(originalUrl).digest('hex');
     const slug = hash.slice(0, 6);
+    return slug;
+  }
 
-    return `${prefix}${slug}`;
+  private getShortenBaseUrl(): string {
+    return this.configService.getOrThrow<string>('SHORTEN_BASE_URL');
   }
 
   async findOneBySlug(slug: string): Promise<Url | null> {
