@@ -54,6 +54,7 @@ export function Url() {
   const createShortLoading = createShortHandler.isLoading;
 
   const onCreateShortUrl = () => {
+    setShortenUrl(null);
     createShortHandler.mutate(url);
   };
 

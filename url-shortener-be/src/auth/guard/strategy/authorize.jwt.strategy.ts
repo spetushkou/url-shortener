@@ -18,8 +18,7 @@ export class AuthorizeJwtStrategy extends PassportStrategy(Strategy, AuthStrateg
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req: Request): any => {
-          const jwtFromHttpRequest = req.cookies?.[Cookie.Authentication];
-          return jwtFromHttpRequest;
+          return req.cookies?.[Cookie.Authentication];
         },
       ]),
       secretOrKey: configService.getOrThrow('JWT_SECRET'),
@@ -33,6 +32,6 @@ export class AuthorizeJwtStrategy extends PassportStrategy(Strategy, AuthStrateg
    *
    */
   async validate({ userId }: AuthJwtPayload): Promise<AuthResponse> {
-    return await this.userService.findOne(userId);
+    return this.userService.findOne(userId);
   }
 }

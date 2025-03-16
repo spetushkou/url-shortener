@@ -5,4 +5,5 @@ export interface Url extends MongoEntity {
   slug: string;
   shortenUrl: string;
   createdAt: Date;
+  userId?: string;
 }

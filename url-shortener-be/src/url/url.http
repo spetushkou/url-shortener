@@ -3,6 +3,7 @@
 @RESOURCE = /url
 @URL = {{HOST}}{{RESOURCE}}
 @CONTENT_TYPE_JSON = Content-Type: application/json
+@AUTH_COOKIE = Cookie: Authentication=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NlZjM0NWVjZmViZTk4ODkzNmFkZWQiLCJpYXQiOjE3NDIxNjMxNzEsImV4cCI6MTc0MjE2Njc3MX0.Ar2T068syGM2iLB-O1Yb3BmiogTFeWKeCodgCe-0prw; Max-Age=3600; Path=/; Expires=Sun, 16 Mar 2025 23:12:51 GMT; SameSite=Strict
 @ID = 
 
 ### findMany
@@ -10,7 +11,7 @@ GET {{URL}}
 {{CONTENT_TYPE_JSON}}
 
 ### findOneBySlug
-GET {{URL}}/03a3d6
+GET {{URL}}/03a3d6s
 {{CONTENT_TYPE_JSON}}
 
 ### createShort
