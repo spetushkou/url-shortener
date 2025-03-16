@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { ExceptionInline } from '../../common/exception/exception.inline.tsx';
 import { Exception } from '../../common/exception/exception.ts';
+import { ProgressOverflow } from '../../common/progress/progress.overflow.tsx';
 import { ResponseControllerMany } from '../../common/response/response.controller.many.ts';
 import { UrlShortenerConfirm } from './shortenerConfirm/url.shortener.confirm.tsx';
 import { UrlShortenerForm } from './shortenerForm/url.shortener.form.tsx';
@@ -61,7 +62,7 @@ export function Url() {
 
   return (
     <Box>
-      {loading && <Box>Loading...</Box>}
+      {loading && <ProgressOverflow message='Loading...' />}
       <Typography variant='h5' gutterBottom>
         Enter the URL to shorten
       </Typography>
