@@ -50,7 +50,12 @@ export class AuthService {
 
     const { token, expires } = await AuthJwtService.sign(this.jwtService, expiration, authJwtPayload);
 
-    res.cookie(Cookie.Authentication, token, { expires, httpOnly: true });
+    res.cookie(Cookie.Authentication, token, {
+      httpOnly: false, // for the case to obtain auth related data on FE (i.e. user name, user roles, etc.)
+      secure: this.configService.get<string>('NODE_ENV') === 'production',
+      sameSite: 'strict',
+      expires,
+    });
   }
 
   deleteResponseAuthenticationCookie(res: Response): void {

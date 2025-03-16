@@ -1,3 +1,4 @@
+import { CookiesProvider } from 'react-cookie';
 import { ExceptionHandler } from '../common/exception/exception.handler';
 import { QueryProvider } from '../common/query/query.provider';
 import { AuthContextProvider } from './auth/context/auth.context.provider';
@@ -7,13 +8,15 @@ import { Router } from './router/router';
 export function App() {
   return (
     <ExceptionHandler>
-      <QueryProvider>
-        <AuthContextProvider>
-          <Router>
-            <Layout />
-          </Router>
-        </AuthContextProvider>
-      </QueryProvider>
+      <CookiesProvider>
+        <QueryProvider>
+          <AuthContextProvider>
+            <Router>
+              <Layout />
+            </Router>
+          </AuthContextProvider>
+        </QueryProvider>
+      </CookiesProvider>
     </ExceptionHandler>
   );
 }
