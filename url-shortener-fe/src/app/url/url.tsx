@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { ExceptionInline } from '../../common/exception/exception.inline.tsx';
@@ -9,7 +9,7 @@ import { UrlToken } from './types/url.token.ts';
 import { Url as UrlType } from './types/url.ts';
 import './url.css';
 import { UrlService } from './url.service.ts';
-import { UrlShortenerForm } from './url.shortener.form.tsx';
+import { UrlShortener } from './url.shortener.tsx';
 
 export function Url() {
   const queryClient = useQueryClient();
@@ -19,9 +19,9 @@ export function Url() {
   });
 
   const {
-    isLoading: urlFindManyLoading,
-    data: urlFindManyResponse,
-    error: urlFindManyError,
+    isLoading: urlLoading,
+    data: urlResponse,
+    error: urlError,
   } = useQuery<ResponseControllerMany<UrlType>, Exception>(
     [`${UrlToken.BaseUrl}`, 'findMany'],
     async () => await UrlService.findMany(),
@@ -29,9 +29,9 @@ export function Url() {
       enabled: true,
     },
   );
-  const urlCollection = urlFindManyResponse?.data ?? [];
+  const urlCollection = urlResponse?.data ?? [];
 
-  const createShortUrlHandler = useMutation({
+  const createShortHandler = useMutation({
     mutationFn: (createDto: UrlCreateDto) => {
       return UrlService.createShort(createDto);
     },
@@ -39,25 +39,24 @@ export function Url() {
       queryClient.invalidateQueries({ queryKey: [`${UrlToken.BaseUrl}`, 'findMany'] });
     },
   });
-  const urlSubmitError = createShortUrlHandler.error as Exception;
-  const urlSubmitLoading = createShortUrlHandler.isLoading;
+  const createShortError = createShortHandler.error as Exception;
+  const createShortLoading = createShortHandler.isLoading;
 
   const onCreateShortUrl = () => {
-    createShortUrlHandler.mutate(url);
+    createShortHandler.mutate(url);
   };
 
-  const loading = urlFindManyLoading || urlSubmitLoading;
-  const error = urlFindManyError || urlSubmitError;
+  const loading = urlLoading || createShortLoading;
+  const error = urlError || createShortError;
 
   return (
-    <Container>
+    <Box>
       {loading && <Box>Loading...</Box>}
-
-      <Box>
-        <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
-        {/* <UrlShortenerList urlCollection={urlCollection} /> */}
-      </Box>
+      <Typography variant='h5' gutterBottom>
+        Enter the URL to shorten
+      </Typography>
+      <UrlShortener url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
       {error && <ExceptionInline error={error} />}
-    </Container>
+    </Box>
   );
 }

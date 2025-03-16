@@ -4,12 +4,12 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Exception } from '../../../common/exception/exception';
 import { ExceptionInline } from '../../../common/exception/exception.inline';
-import { RoutePath } from '../../router/route.path';
+import { RouterPath } from '../../router/router.path';
+import { UserCreateDto } from '../../user/types/user.create.dto';
 import { AuthService } from '../auth.service';
 import { AuthContext } from '../context/auth.context';
-import { UserCreateDto } from '../user/types/user.create.dto';
 
-export const SignupForm = () => {
+export const AuthSignup = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -28,7 +28,7 @@ export const SignupForm = () => {
 
       setUserEmail(data.email);
       setIsAuthenticated(true);
-      navigate(RoutePath.Home);
+      navigate(RouterPath.Home);
     },
   });
   const signupError = signupHandler.error as Exception;
@@ -79,7 +79,7 @@ export const SignupForm = () => {
           <Button type='submit' variant='contained' color='primary' disabled={signupLoading}>
             {signupLoading ? <CircularProgress size={24} color='secondary' /> : 'Sign Up'}
           </Button>
-          <Link to={RoutePath.Home} style={{ textDecoration: 'none', marginLeft: 10 }}>
+          <Link to={RouterPath.Home} style={{ textDecoration: 'none', marginLeft: 10 }}>
             Return Back
           </Link>
         </Box>

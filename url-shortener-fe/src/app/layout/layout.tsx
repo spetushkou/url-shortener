@@ -1,12 +1,12 @@
 import { Container } from '@mui/material';
-import { Content } from './content';
-import { Header } from './header';
+import { LayoutContent } from './layout.content';
+import { LayoutHeader } from './layout.header';
 
 export function Layout() {
   return (
     <Container>
-      <Header />
-      <Content />
+      <LayoutHeader />
+      <LayoutContent />
     </Container>
   );
 }

@@ -1,8 +1,8 @@
 import LinkIcon from '@mui/icons-material/Link';
 import { Box, Typography } from '@mui/material';
-import { AuthBar } from '../auth/auth.bar';
+import { AuthBar } from '../auth/bar/auth.bar';
 
-export function Header() {
+export function LayoutHeader() {
   return (
     <Box
       sx={{

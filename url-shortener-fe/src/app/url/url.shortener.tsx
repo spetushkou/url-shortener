@@ -8,7 +8,7 @@ interface Props {
   onCreateShort: () => void;
 }
 
-export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
+export function UrlShortener({ url, setUrl, onCreateShort }: Props) {
   const onOriginalUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -19,11 +19,11 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
   };
 
   return (
-    <div>
+    <Box>
       <TextField
         id='originalUrl'
         name='originalUrl'
-        label='Enter the URL to shorten'
+        label='URL'
         variant='outlined'
         fullWidth
         value={url.originalUrl}
@@ -35,6 +35,6 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
           Shorten
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 }

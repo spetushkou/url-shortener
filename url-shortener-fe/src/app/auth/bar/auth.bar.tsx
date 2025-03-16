@@ -2,17 +2,17 @@ import { Box, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Exception } from '../../common/exception/exception';
-import { RoutePath } from '../router/route.path';
-import { AuthService } from './auth.service';
-import { AuthContext } from './context/auth.context';
+import { Exception } from '../../../common/exception/exception';
+import { RouterPath } from '../../router/router.path';
+import { AuthService } from '../auth.service';
+import { AuthContext } from '../context/auth.context';
 
 export function AuthBar() {
   const location = useLocation();
   const { userEmail, isAuthenticated } = useContext(AuthContext);
 
-  const displaySignup = location.pathname !== RoutePath.Signup && !isAuthenticated;
-  const displaySignin = location.pathname !== RoutePath.Signin && !isAuthenticated;
+  const displaySignup = location.pathname !== RouterPath.Signup && !isAuthenticated;
+  const displaySignin = location.pathname !== RouterPath.Signin && !isAuthenticated;
   const displaySignout = isAuthenticated;
   const displayUserId = isAuthenticated;
 
@@ -42,12 +42,12 @@ export function AuthBar() {
     >
       {displayUserId && <Typography sx={{ marginRight: 2 }}>Welcome, {userEmail}</Typography>}
       {displaySignout && (
-        <Link to={RoutePath.Signup} style={{ textDecoration: 'none' }} onClick={onSignout}>
+        <Link to={RouterPath.Signup} style={{ textDecoration: 'none' }} onClick={onSignout}>
           Sign out
         </Link>
       )}
       {displaySignup && (
-        <Link to={RoutePath.Signup} style={{ textDecoration: 'none' }}>
+        <Link to={RouterPath.Signup} style={{ textDecoration: 'none' }}>
           Sign up
         </Link>
       )}
