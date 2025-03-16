@@ -1,8 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { ExceptionInline } from '../../common/exception/exception.inline.tsx';
 import { Exception } from '../../common/exception/exception.ts';
+import { Header } from '../../common/header/header.tsx';
 import { ProgressOverflow } from '../../common/progress/progress.overflow.tsx';
 import { ResponseControllerMany } from '../../common/response/response.controller.many.ts';
 import { UrlShortenerConfirm } from './shortenerConfirm/url.shortener.confirm.tsx';
@@ -63,9 +64,7 @@ export function Url() {
   return (
     <Box>
       {loading && <ProgressOverflow message='Loading...' />}
-      <Typography variant='h5' gutterBottom>
-        Enter the URL to shorten
-      </Typography>
+      <Header header='Enter the URL to shorten' />
       <UrlShortenerForm url={url} setUrl={setUrl} onCreateShort={onCreateShortUrl} />
       {shortenUrl && <UrlShortenerConfirm url={shortenUrl} />}
       {error && <ExceptionInline error={error} />}

@@ -1,9 +1,10 @@
-import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Exception } from '../../../common/exception/exception';
 import { ExceptionInline } from '../../../common/exception/exception.inline';
+import { Header } from '../../../common/header/header';
 import { RouterPath } from '../../router/router.path';
 import { UserDto } from '../../user/types/user.dto';
 import { AuthService } from '../auth.service';
@@ -45,9 +46,7 @@ export const AuthSignin = () => {
 
   return (
     <Box>
-      <Typography variant='h5' gutterBottom>
-        Signin
-      </Typography>
+      <Header header='Signin' />
       <form onSubmit={onSignin}>
         <TextField
           id='email'
