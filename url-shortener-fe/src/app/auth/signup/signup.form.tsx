@@ -22,7 +22,6 @@ export const SignupForm = () => {
       return AuthService.signup(createDto);
     },
     onSettled: (data) => {
-      console.log({ data });
       if (!data) {
         return;
       }

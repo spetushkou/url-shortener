@@ -18,6 +18,19 @@ const signup = async (createDto: UserCreateDto): Promise<UserSerializeDto> => {
   }
 };
 
+const signout = async (): Promise<ResponseControllerOne<UserSerializeDto>> => {
+  try {
+    const endpoint = `/${AuthToken.BaseUrl}/signout`;
+
+    const response = await HttpClient().post<ResponseControllerOne<UserSerializeDto>>(endpoint);
+    const { data } = response;
+
+    return data;
+  } catch (error) {
+    return Promise.reject(ExceptionParser.parse(error));
+  }
+};
+
 const me = async (): Promise<ResponseControllerOne<UserSerializeDto>> => {
   try {
     const endpoint = `/${AuthToken.BaseUrl}/me`;
@@ -33,5 +46,6 @@ const me = async (): Promise<ResponseControllerOne<UserSerializeDto>> => {
 
 export const AuthService = {
   signup,
+  signout,
   me,
 };
