@@ -16,6 +16,8 @@ RUN npm run build
 
 # Stage 2: Production Stage
 FROM nginx:alpine AS production
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=development /usr/src/app/dist /usr/share/nginx/html
 EXPOSE 80
