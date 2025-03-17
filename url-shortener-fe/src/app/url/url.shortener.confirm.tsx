@@ -1,7 +1,7 @@
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { UrlCopyLink } from './url.copy.link';
 
 interface Props {
   shortenUrl: string;
@@ -27,15 +27,7 @@ export function UrlShortenerConfirm({ shortenUrl }: Props) {
         <Link to={shortenUrl} target='_blank' style={{ marginRight: 40 }}>
           {shortenUrl}
         </Link>
-        <Button
-          variant='outlined'
-          size='small'
-          color='secondary'
-          startIcon={<ContentCopyIcon />}
-          onClick={() => onCopyUrl(shortenUrl)}
-        >
-          Copy
-        </Button>
+        <UrlCopyLink shortenUrl={shortenUrl} onCopyUrl={onCopyUrl} />
       </Box>
     </Box>
   );
