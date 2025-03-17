@@ -8,9 +8,9 @@ interface Props {
 }
 
 export function UrlShortenerConfirm({ shortenUrl }: Props) {
-  const onCopyUrl = useCallback(() => {
+  const onCopyUrl = useCallback((shortenUrl: string) => {
     navigator.clipboard.writeText(shortenUrl);
-  }, [shortenUrl]);
+  }, []);
 
   return (
     <Box>
@@ -27,7 +27,13 @@ export function UrlShortenerConfirm({ shortenUrl }: Props) {
         <Link to={shortenUrl} target='_blank' style={{ marginRight: 40 }}>
           {shortenUrl}
         </Link>
-        <Button variant='outlined' color='secondary' startIcon={<ContentCopyIcon />} onClick={onCopyUrl}>
+        <Button
+          variant='outlined'
+          size='small'
+          color='secondary'
+          startIcon={<ContentCopyIcon />}
+          onClick={() => onCopyUrl(shortenUrl)}
+        >
           Copy
         </Button>
       </Box>

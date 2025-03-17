@@ -47,6 +47,7 @@ export const AuthSignup = () => {
 
   return (
     <Box>
+      <ReturnHomeLink />
       <Header header='Signup' />
       <form onSubmit={onSignup}>
         <TextField
@@ -79,7 +80,6 @@ export const AuthSignup = () => {
           <Button type='submit' variant='contained' color='primary' disabled={signupLoading}>
             {signupLoading ? <CircularProgress size={24} color='secondary' /> : 'Sign Up'}
           </Button>
-          <ReturnHomeLink />
         </Box>
       </form>
       {signupError && <ExceptionInline error={signupError} />}
