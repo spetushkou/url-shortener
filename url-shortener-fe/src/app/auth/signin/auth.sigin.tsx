@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Exception } from '../../../common/exception/exception';
 import { ExceptionInline } from '../../../common/exception/exception.inline';
 import { Header } from '../../../common/header/header';
-import { ReturnHomeLink } from '../../../common/returnHomeLink/return.home.link';
+import { HomeLink } from '../../home/home.link';
 import { RouterPath } from '../../router/router.path';
 import { UserDto } from '../../user/types/user.dto';
 import { AuthService } from '../auth.service';
@@ -47,7 +47,7 @@ export const AuthSignin = () => {
 
   return (
     <Box>
-      <ReturnHomeLink />
+      <HomeLink />
       <Header header='Signin' />
       <form onSubmit={onSignin}>
         <TextField

@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import { ReturnHomeLink } from '../returnHomeLink/return.home.link';
+import { HomeLink } from '../home/home.link';
 
 export function ServicePageNotFound() {
   return (
@@ -18,7 +18,7 @@ export function ServicePageNotFound() {
       <Typography variant='h6' color='textSecondary' paragraph>
         The page you are looking for does not exist.
       </Typography>
-      <ReturnHomeLink />
+      <HomeLink />
     </Container>
   );
 }

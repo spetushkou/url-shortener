@@ -6,7 +6,7 @@ interface Props {
 
 export function Header({ header }: Props) {
   return (
-    <Typography variant='h5' gutterBottom>
+    <Typography variant='h5' gutterBottom={true}>
       {header}
     </Typography>
   );

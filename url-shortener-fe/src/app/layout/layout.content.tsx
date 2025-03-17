@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import { ServicePageNotFound } from '../../common/servicePage/service.page.not.found';
 import { AuthSignin } from '../auth/signin/auth.sigin';
 import { AuthSignup } from '../auth/signup/auth.signup';
 import { RouterPath } from '../router/router.path';
+import { ServicePageNotFound } from '../servicePage/service.page.not.found';
 import { Url } from '../url/url';
 import { UrlShortenerHistory } from '../url/url.shortener.history';
 import { UrlRedirect } from '../url/urlRedirect/url.redirect';

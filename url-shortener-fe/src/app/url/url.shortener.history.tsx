@@ -7,7 +7,7 @@ import { ExceptionInline } from '../../common/exception/exception.inline';
 import { Header } from '../../common/header/header';
 import { ProgressOverflow } from '../../common/progress/progress.overflow';
 import { ResponseControllerMany } from '../../common/response/response.controller.many';
-import { ReturnHomeLink } from '../../common/returnHomeLink/return.home.link';
+import { HomeLink } from '../home/home.link';
 import { UrlSerializeDto } from './types/url.serialize.dto';
 import { UrlToken } from './types/url.token';
 import { UrlService } from './url.service';
@@ -37,7 +37,7 @@ export function UrlShortenerHistory() {
   return (
     <Box>
       {urlLoading && <ProgressOverflow message='Loading...' />}
-      <ReturnHomeLink />
+      <HomeLink />
       <Header header='My history' />
       <Box>
         <TableContainer component={Paper}>
