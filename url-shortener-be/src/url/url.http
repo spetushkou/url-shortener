@@ -20,5 +20,5 @@ POST {{URL}}
 {{AUTH_COOKIE}}
 
 {
-  "originalUrl": "https://nodejs.org/docs/latest/api/2"
+  "originalUrl": "https://nodejs.org/docs/latest/api/4"
 }

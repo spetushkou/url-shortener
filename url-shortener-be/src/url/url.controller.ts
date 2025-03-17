@@ -31,9 +31,8 @@ export class UrlController {
 
   @Post()
   @UseGuards(AuthorizeJwtOptionalGuard)
-  async createShort(@AuthUser() user: User, @Body() createDto: UrlCreateDto): Promise<Url> {
-    console.log({ user });
-    const entity = await this.service.createShort(createDto);
+  async createShort(@AuthUser() user: User | null, @Body() createDto: UrlCreateDto): Promise<Url> {
+    const entity = await this.service.createShort(user, createDto);
     return new UrlSerializeDto(entity);
   }
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import crypto from 'crypto';
+import { UtilMongo } from '../common/util/util.mongo';
+import { User } from '../user/user';
 import { UrlCreateDto } from './dto/url.create.dto';
 import { UrlCreateRepositoryDto } from './dto/url.create.repository.dto';
 import { Url } from './url';
@@ -17,7 +19,7 @@ export class UrlService {
     return this.repository.findMany();
   }
 
-  async createShort(createDto: UrlCreateDto): Promise<Url> {
+  async createShort(user: User | null, createDto: UrlCreateDto): Promise<Url> {
     const { originalUrl } = createDto;
 
     const entity = await this.repository.findOne({ originalUrl });
@@ -28,11 +30,13 @@ export class UrlService {
     const shortenBaseUrl = this.getShortenBaseUrl();
     const slug = this.generateSlug(originalUrl);
     const shortenUrl = `${shortenBaseUrl}${slug}`;
+    const userId = user ? UtilMongo.parseId(user._id) : null;
 
     const createRepositoryDto: UrlCreateRepositoryDto = {
       ...createDto,
       slug,
       shortenUrl,
+      userId,
     };
 
     return this.repository.create(createRepositoryDto);
