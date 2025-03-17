@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Exception } from '../../../common/exception/exception';
 import { ExceptionInline } from '../../../common/exception/exception.inline';
@@ -22,13 +22,34 @@ export function UrlShortenerHistory() {
       retry: false,
     },
   );
-  const urlCollection = urlResponse?.data ?? [];
-  console.log({ urlCollection });
+  const urlCollection: UrlSerializeDto[] = urlResponse?.data ?? [];
 
   return (
     <Box>
       {urlLoading && <ProgressOverflow message='Loading...' />}
       <Header header='Your history' />
+      <Box>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Created At</TableCell>
+                <TableCell>Original URL</TableCell>
+                <TableCell>Shortened URL</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {urlCollection.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell>{new Date(row.createdAt).toLocaleString()}</TableCell>
+                  <TableCell>{row.originalUrl}</TableCell>
+                  <TableCell>{row.shortenUrl}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
       {urlError && <ExceptionInline error={urlError} />}
     </Box>
   );
