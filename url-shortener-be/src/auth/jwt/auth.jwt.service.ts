@@ -1,4 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
+import { Cookie } from '../../common/cookie/cookie';
 import { AuthJwtPayload } from './auth.jwt.payload';
 
 interface AuthJwt {
@@ -16,6 +18,11 @@ async function sign(jwtService: JwtService, expirationSeconds: number, payload: 
   };
 }
 
+function getAuthorizationCookiesFromRequest(req: Request): any {
+  return req.cookies?.[Cookie.Authentication];
+}
+
 export const AuthJwtService = {
   sign,
+  getAuthorizationCookiesFromRequest,
 };

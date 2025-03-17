@@ -1,6 +1,6 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthUser } from '../auth/decorator/auth.user.decorator';
-import { AuthorizeJwtGuard } from '../auth/guard/authorize.jwt.guard';
+import { AuthorizeJwtOptionalGuard } from '../auth/guard/authorize.jwt.optional.guard';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
 import { User } from '../user/user';
 import { UrlCreateDto } from './dto/url.create.dto';
@@ -30,7 +30,7 @@ export class UrlController {
   }
 
   @Post()
-  @UseGuards(AuthorizeJwtGuard)
+  @UseGuards(AuthorizeJwtOptionalGuard)
   async createShort(@AuthUser() user: User, @Body() createDto: UrlCreateDto): Promise<Url> {
     console.log({ user });
     const entity = await this.service.createShort(createDto);
