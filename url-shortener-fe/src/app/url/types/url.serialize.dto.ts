@@ -7,4 +7,6 @@ export class UrlSerializeDto extends EntityBaseSerializeDto implements Omit<Url,
   slug: string;
   shortenUrl: string;
   createdAt: Date;
+  userId: string | null;
+  visits: number;
 }

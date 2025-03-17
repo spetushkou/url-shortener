@@ -47,6 +47,7 @@ export function UrlShortenerHistory() {
                 <TableCell>Created At</TableCell>
                 <TableCell>Original URL</TableCell>
                 <TableCell>Shortened URL</TableCell>
+                <TableCell>Visits</TableCell>
                 <TableCell>Copy</TableCell>
               </TableRow>
             </TableHead>
@@ -60,6 +61,7 @@ export function UrlShortenerHistory() {
                       {row.shortenUrl}
                     </Link>
                   </TableCell>
+                  <TableCell>{row.visits}</TableCell>
                   <TableCell>
                     <Button
                       variant='outlined'

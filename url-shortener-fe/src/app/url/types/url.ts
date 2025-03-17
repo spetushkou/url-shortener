@@ -5,4 +5,6 @@ export interface Url extends Entity {
   slug: string;
   shortenUrl: string;
   createdAt: Date;
+  userId: string | null;
+  visits: number;
 }

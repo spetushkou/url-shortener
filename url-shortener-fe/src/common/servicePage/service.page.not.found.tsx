@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import { ReturnHomeLink } from '../returnHomeLink/return.home.link';
 
-export function NotFound() {
+export function ServicePageNotFound() {
   return (
     <Container
       maxWidth='sm'
