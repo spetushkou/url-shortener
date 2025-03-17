@@ -1,24 +1,24 @@
 services:
-  # MongoDB service
-  # url-shortener-db:
-  #   image: mongo:latest
-  #   container_name: url-shortener-db
-  #   restart: unless-stopped
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: admin
-  #     MONGO_INITDB_ROOT_PASSWORD: admin
-  #     MONGO_INITDB_DATABASE: url_shortener
-  #   ports:
-  #     - '27017:27017'
-  #   volumes:
-  #     - mongo-data:/data/db
-  #   command: mongod --quiet
+  # # url-shortener-db service
+  url-shortener-db:
+    image: mongo:latest
+    container_name: url-shortener-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: url_shortener
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    command: mongod --quiet
 
   # url-shortener-be service
   url-shortener-be:
     image: url-shortener-be
     build:
-      context: ./url-shortener-be/
+      context: ./url-shortener-be
       dockerfile: Dockerfile.dev
     container_name: url-shortener-be
     restart: no
@@ -34,9 +34,28 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - .:/usr/src/app
-    # depends_on:
-    #   - url-shortener-db
+      - ./url-shortener-be:/usr/src/app
+    depends_on:
+      - url-shortener-db
+    command: npm run start:dev
+
+  # url-shortener-fe service
+  url-shortener-fe:
+    image: url-shortener-fe
+    build:
+      context: ./url-shortener-fe
+      dockerfile: Dockerfile.dev
+    container_name: url-shortener-fe
+    restart: no
+    environment:
+      - VITE_NODE_ENV=development
+      - VITE_SERVER_API_URL=http://url-shortener-be:3000
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./url-shortener-fe:/usr/src/app
+    depends_on:
+      - url-shortener-be
     command: npm run start:dev
 
 volumes:
