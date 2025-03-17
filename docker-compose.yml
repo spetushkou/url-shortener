@@ -1,42 +1,43 @@
 services:
   # # url-shortener-db service
-  # url-shortener-db:
-  #   image: mongo:latest
-  #   container_name: url-shortener-db
-  #   restart: unless-stopped
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: admin
-  #     MONGO_INITDB_ROOT_PASSWORD: admin
-  #     MONGO_INITDB_DATABASE: url_shortener
-  #   ports:
-  #     - '27017:27017'
-  #   volumes:
-  #     - mongo-data:/data/db
-  #   command: mongod --quiet
+  url-shortener-db:
+    image: mongo:latest
+    container_name: url-shortener-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: url_shortener
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    command: mongod --quiet
 
-  # # url-shortener-be service
-  # url-shortener-be:
-  #   image: url-shortener-be
-  #   build:
-  #     context: ./url-shortener-be
-  #     dockerfile: Dockerfile.dev
-  #   container_name: url-shortener-be
-  #   restart: no
-  #   environment:
-  #     - NODE_ENV=development
-  #     - APP_PORT=3000
-  #     - APP_PACKAGE_JSON_PATH=./package.json
-  #     - DATABASE_URL=mongodb://admin:admin@url-shortener-db:27017/url_shortener?authSource=admin
-  #     - SHORTEN_BASE_URL=http://localhost:5173/
-  #     - JWT_SECRET=some_secret
-  #     - JWT_EXPIRATION=3600
-  #   ports:
-  #     - '3000:3000'
-  #   volumes:
-  #     - ./url-shortener-be:/usr/src/app
-  #   depends_on:
-  #     - url-shortener-db
-  #   command: npm run start:dev
+  # url-shortener-be service
+  url-shortener-be:
+    image: url-shortener-be
+    build:
+      context: ./url-shortener-be
+      dockerfile: Dockerfile.dev
+    container_name: url-shortener-be
+    restart: no
+    environment:
+      - NODE_ENV=development
+      - APP_PORT=3000
+      - APP_PACKAGE_JSON_PATH=./package.json
+      - DATABASE_URL=mongodb://admin:admin@url-shortener-db:27017/url_shortener?authSource=admin
+      - SHORTEN_BASE_URL=http://localhost:5173/
+      - JWT_SECRET=some_secret
+      - JWT_EXPIRATION=3600
+      - CLIENT_URL=http://localhost:5173
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./url-shortener-be:/usr/src/app
+    depends_on:
+      - url-shortener-db
+    command: npm run start:dev
 
   # url-shortener-fe service
   url-shortener-fe:
@@ -48,15 +49,13 @@ services:
     restart: no
     environment:
       - VITE_NODE_ENV=development
-      - VITE_SERVER_API_URL=http://url-shortener-be:3000
+      - VITE_SERVER_API_URL=http://localhost:3000
     ports:
       - '5173:5173'
     volumes:
       - ./url-shortener-fe:/usr/src/app
       - node_modules:/usr/src/app/node_modules
-    # depends_on:
-    #   - url-shortener-be
-    command: npm run start:dev -- --host
+    command: npm run start:dev
 
 volumes:
   mongo-data:
