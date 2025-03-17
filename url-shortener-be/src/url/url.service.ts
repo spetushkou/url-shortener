@@ -55,4 +55,7 @@ export class UrlService {
   async findOneBySlug(slug: string): Promise<Url | null> {
     return this.repository.findOne({ slug });
   }
+  async findManyByUserId(userId: string): Promise<Url[]> {
+    return this.repository.findMany({ userId });
+  }
 }

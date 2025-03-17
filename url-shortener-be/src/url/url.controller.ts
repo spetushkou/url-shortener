@@ -1,7 +1,9 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthUser } from '../auth/decorator/auth.user.decorator';
+import { AuthorizeJwtGuard } from '../auth/guard/authorize.jwt.guard';
 import { AuthorizeJwtOptionalGuard } from '../auth/guard/authorize.jwt.optional.guard';
 import { ResponseControllerInterceptor } from '../common/response/response.controller.interceptor';
+import { UtilMongo } from '../common/util/util.mongo';
 import { User } from '../user/user';
 import { UrlCreateDto } from './dto/url.create.dto';
 import { UrlSerializeDto } from './dto/url.serialize.dto';
@@ -16,6 +18,14 @@ export class UrlController {
   @Get()
   async findMany(): Promise<Url[]> {
     const entities = await this.service.findMany();
+    return entities.map((entity) => new UrlSerializeDto(entity));
+  }
+
+  @Get('/user')
+  @UseGuards(AuthorizeJwtGuard)
+  async findManyByUserId(@AuthUser() user: User): Promise<Url[]> {
+    const userId = UtilMongo.parseId(user._id);
+    const entities = await this.service.findManyByUserId(userId);
     return entities.map((entity) => new UrlSerializeDto(entity));
   }
 

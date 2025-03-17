@@ -4,14 +4,19 @@
 @URL = {{HOST}}{{RESOURCE}}
 @CONTENT_TYPE_JSON = Content-Type: application/json
 @AUTH_COOKIE = Cookie: Authentication=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2NlZjM0NWVjZmViZTk4ODkzNmFkZWQiLCJpYXQiOjE3NDIxOTkyMjcsImV4cCI6MTc0MjIwMjgyN30.Int18PwC2ESvdOGcktixCcWnzYRPg0LyRJyEnXYuOW4; Max-Age=3600; Path=/; Expires=Mon, 17 Mar 2025 09:13:47 GMT; SameSite=Strict
-@ID = 
+@SLUG = b5a50c
 
 ### findMany
 GET {{URL}}
 {{CONTENT_TYPE_JSON}}
 
+### findManyByUserId
+GET {{URL}}/user
+{{CONTENT_TYPE_JSON}}
+{{AUTH_COOKIE}}
+
 ### findOneBySlug
-GET {{URL}}/03a3d6s
+GET {{URL}}/{{SLUG}}
 {{CONTENT_TYPE_JSON}}
 
 ### createShort
