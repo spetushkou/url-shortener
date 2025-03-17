@@ -1,5 +1,39 @@
+# FROM node:20.17.0
+# WORKDIR /usr/src/app
+# COPY package*.json ./
+# CMD npm install --prefer-offline && \
+#   npm run start:dev
+
+# Dockerfile.dev for React/Vite frontend
+# FROM node:20.17.0
+
+# WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json or yarn.lock
+# COPY package.json ./
+
+# Install dependencies
+# RUN npm install
+
+# Copy the rest of your application files
+# COPY . .
+
+# Expose the Vite development server port
+# EXPOSE 5173
+
+# Command to start the frontend
+# CMD ["npm", "run", "start:dev", "--", "--host"]
+
 FROM node:20.17.0
+
 WORKDIR /usr/src/app
-COPY package*.json ./
-CMD npm install --prefer-offline && \
-  npm run start:dev
+
+COPY package.json ./
+COPY package-lock.json ./
+
+RUN npm install --prefer-offline
+
+# Copy the rest of your app
+COPY . .
+
+CMD npm run start:dev

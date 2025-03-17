@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "start:dev": "vite",
+    "start:dev": "vite --host",
     "format": "prettier **/* --write --ignore-unknown",
     "lint": "eslint $npm_package_config_dir_src/**/*.{js,jsx,ts,tsx} --no-error-on-unmatched-pattern",
     "lint:errors": "eslint $npm_package_config_dir_src/**/*.{js,jsx,ts,tsx} --no-error-on-unmatched-pattern --quiet",
