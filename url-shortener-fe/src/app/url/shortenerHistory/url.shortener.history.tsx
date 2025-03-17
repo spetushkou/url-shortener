@@ -1,5 +1,6 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 import { Exception } from '../../../common/exception/exception';
 import { ExceptionInline } from '../../../common/exception/exception.inline';
 import { Header } from '../../../common/header/header';
@@ -43,7 +44,11 @@ export function UrlShortenerHistory() {
                 <TableRow key={row.id}>
                   <TableCell>{new Date(row.createdAt).toLocaleString()}</TableCell>
                   <TableCell>{row.originalUrl}</TableCell>
-                  <TableCell>{row.shortenUrl}</TableCell>
+                  <TableCell>
+                    <Link to={row.shortenUrl} target='_blank'>
+                      {row.shortenUrl}
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
