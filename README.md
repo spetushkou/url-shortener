@@ -1,19 +1,31 @@
 # URL Shortener
 
-## How to start (local development environment)
+## How to run in the Development environment
 
 ```bash
+# start
 cd url-shortener
 docker compose up --build
-```
 
-Navigate to a browser and enter URL: `http://localhost:5173/`
+# Navigate to a browser and enter URL: `http://localhost:5173/`
 
-## How to stop (local development environment)
-
-```bash
+# stop
 cd url-shortener
 docker compose down
+```
+
+## How to use in the Production environment
+
+```bash
+# start
+cd url-shortener
+docker compose -f docker-compose.prod.yml up --build
+
+# Navigate to a browser and enter URL: `http://localhost:8080/`
+
+# stop
+cd url-shortener
+docker compose -f docker-compose.prod.yml down
 ```
 
 ## Project structure
@@ -45,7 +57,9 @@ The backend is implemented with NestJS, TypeScript and the template I have devel
 
 ## Developer notes
 
-- I am using MongoDB.
+- I am using MongoDB for db.
+- I am using Pino for logging.
+- I am using Passport for auth.
 - There is a `MongoBaseRepository` base class (`url-shortener-be/src/common/database/mongo/mongo.base.repository.ts`) to work with MongoDB to avoid code duplication.
 - I am using atomical incremental of user visits in order to avoid race conditions under high load: `url-shortener-be/src/url/url.service.ts` in the `findOneBySlug` method.
 - I have added the original task assignment and some screenshorts of the app to this project.
