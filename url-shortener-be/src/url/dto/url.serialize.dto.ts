@@ -7,6 +7,7 @@ export class UrlSerializeDto extends MongoBaseSerializeDto implements Url {
   shortenUrl: string;
   createdAt: Date;
   userId: string | null;
+  visits: number;
 
   constructor(partial: Partial<UrlSerializeDto>) {
     super();

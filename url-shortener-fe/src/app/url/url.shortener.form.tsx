@@ -1,4 +1,5 @@
-import { Box, Button, TextField } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import React from 'react';
 import { UrlCreateDto } from './types/url.create.dto';
 
@@ -18,6 +19,13 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
     }));
   };
 
+  const clearUrl = () => {
+    setUrl({
+      ...url,
+      originalUrl: '',
+    });
+  };
+
   return (
     <Box>
       <TextField
@@ -29,6 +37,19 @@ export function UrlShortenerForm({ url, setUrl, onCreateShort }: Props) {
         value={url.originalUrl}
         onChange={onOriginalUrlChange}
         sx={{ marginBottom: 2 }}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position='end'>
+                {url.originalUrl && (
+                  <IconButton onClick={clearUrl} edge='end'>
+                    <ClearIcon />
+                  </IconButton>
+                )}
+              </InputAdornment>
+            ),
+          },
+        }}
       />
       <Box>
         <Button type='submit' variant='contained' color='primary' onClick={onCreateShort}>

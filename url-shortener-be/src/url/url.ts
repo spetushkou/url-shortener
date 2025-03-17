@@ -6,4 +6,5 @@ export interface Url extends MongoEntity {
   shortenUrl: string;
   createdAt: Date;
   userId: string | null;
+  visits: number;
 }

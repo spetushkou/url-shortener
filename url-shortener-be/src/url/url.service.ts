@@ -53,7 +53,18 @@ export class UrlService {
   }
 
   async findOneBySlug(slug: string): Promise<Url | null> {
-    return this.repository.findOne({ slug });
+    const url = await this.repository
+      .getModel()
+      .findOneAndUpdate(
+        { slug }, // query by slug
+        { $inc: { visits: 1 } }, // atomical incremental in order to avoid race conditions under high load
+        { new: true },
+      )
+      .exec();
+
+    return url;
+
+    // return this.repository.findOne({ slug });
   }
   async findManyByUserId(userId: string): Promise<Url[]> {
     return this.repository.findMany({ userId });

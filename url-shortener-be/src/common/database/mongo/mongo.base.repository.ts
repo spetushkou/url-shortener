@@ -4,6 +4,10 @@ import { MongoDocument } from './mongo.document';
 export abstract class MongoBaseRepository<Entity extends MongoDocument> {
   constructor(protected readonly model: Model<Entity>) {}
 
+  getModel(): Model<Entity> {
+    return this.model;
+  }
+
   async findMany(filter: FilterQuery<Entity> = {}): Promise<Entity[]> {
     return this.model.find(filter).lean<Entity[]>(true);
   }

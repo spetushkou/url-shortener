@@ -17,6 +17,9 @@ export class Url extends MongoDocument {
 
   @Prop({ type: String, default: null })
   userId: string | null;
+
+  @Prop({ default: 0 })
+  visits: number;
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);
