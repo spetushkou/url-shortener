@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
-import { UrlCreateDto } from '../types/url.create.dto';
+import { UrlCreateDto } from './types/url.create.dto';
 
 interface Props {
   url: UrlCreateDto;

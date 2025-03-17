@@ -2,15 +2,15 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { Exception } from '../../../common/exception/exception';
-import { ExceptionInline } from '../../../common/exception/exception.inline';
-import { Header } from '../../../common/header/header';
-import { ProgressOverflow } from '../../../common/progress/progress.overflow';
-import { ResponseControllerMany } from '../../../common/response/response.controller.many';
-import { ReturnHomeLink } from '../../../common/returnHomeLink/return.home.link';
-import { UrlSerializeDto } from '../types/url.serialize.dto';
-import { UrlToken } from '../types/url.token';
-import { UrlService } from '../url.service';
+import { Exception } from '../../common/exception/exception';
+import { ExceptionInline } from '../../common/exception/exception.inline';
+import { Header } from '../../common/header/header';
+import { ProgressOverflow } from '../../common/progress/progress.overflow';
+import { ResponseControllerMany } from '../../common/response/response.controller.many';
+import { ReturnHomeLink } from '../../common/returnHomeLink/return.home.link';
+import { UrlSerializeDto } from './types/url.serialize.dto';
+import { UrlToken } from './types/url.token';
+import { UrlService } from './url.service';
 
 export function UrlShortenerHistory() {
   const {
