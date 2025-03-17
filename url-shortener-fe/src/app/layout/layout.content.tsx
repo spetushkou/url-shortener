@@ -3,6 +3,7 @@ import { NotFound } from '../../common/notFound/not.found';
 import { AuthSignin } from '../auth/signin/auth.sigin';
 import { AuthSignup } from '../auth/signup/auth.signup';
 import { RouterPath } from '../router/router.path';
+import { UrlShortenerHistory } from '../url/shortenerHistory/url.shortener.history';
 import { Url } from '../url/url';
 import { UrlRedirect } from '../url/urlRedirect/url.redirect';
 
@@ -13,6 +14,7 @@ export function LayoutContent() {
       <Route path={RouterPath.NotFound} element={<NotFound />} />
       <Route path={RouterPath.Signup} element={<AuthSignup />} />
       <Route path={RouterPath.Signin} element={<AuthSignin />} />
+      <Route path={RouterPath.History} element={<UrlShortenerHistory />} />
       <Route path=':slug' element={<UrlRedirect />} />
     </Routes>
   );

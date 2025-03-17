@@ -6,9 +6,9 @@ import { UrlCreateDto } from './types/url.create.dto';
 import { UrlSerializeDto } from './types/url.serialize.dto';
 import { UrlToken } from './types/url.token';
 
-const findMany = async (): Promise<ResponseControllerMany<UrlSerializeDto>> => {
+const findManyByUserId = async (): Promise<ResponseControllerMany<UrlSerializeDto>> => {
   try {
-    const endpoint = `/${UrlToken.BaseUrl}`;
+    const endpoint = `/${UrlToken.BaseUrl}/user`;
 
     const response = await HttpClient().get<ResponseControllerMany<UrlSerializeDto>>(endpoint);
     const { data } = response;
@@ -46,7 +46,7 @@ const createShort = async (createDto: UrlCreateDto): Promise<ResponseControllerO
 };
 
 export const UrlService = {
-  findMany,
+  findManyByUserId,
   findOneBySlug,
   createShort,
 };
