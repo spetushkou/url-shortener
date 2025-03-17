@@ -24,19 +24,14 @@ import { AppConfigValidationSchema } from './app.config.validation.schema';
     }),
     ThrottlerModule.forRoot([
       {
-        name: 'short',
+        name: 'short', // 3 calls in 1 second
         ttl: 1000,
         limit: 3,
       },
       {
-        name: 'medium',
-        ttl: 10000,
-        limit: 20,
-      },
-      {
-        name: 'long',
+        name: 'long', // 1000 calls in 1 minute
         ttl: 60000,
-        limit: 100,
+        limit: 1000,
       },
     ]),
     PinoLoggerModule,
