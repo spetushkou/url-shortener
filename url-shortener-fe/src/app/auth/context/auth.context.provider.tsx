@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ReactNode, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Cookie } from '../../../common/cookie/cookie';
-import { Exception } from '../../../common/exception/exception';
+import { Exception } from '../../../common/exception/exception.base';
 import { ResponseControllerOne } from '../../../common/response/response.controller.one';
 import { UserSerializeDto } from '../../user/types/user.serialize.dto';
 import { AuthService } from '../auth.service';

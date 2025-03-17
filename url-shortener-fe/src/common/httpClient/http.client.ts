@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { Config } from '../config/config';
+import { Config } from '../config/config.vite';
 
 export const HttpClient = (): AxiosInstance => {
   const http = axios.create({

@@ -37,7 +37,6 @@ services:
       - ./url-shortener-be:/usr/src/app
     depends_on:
       - url-shortener-db
-    command: npm run start:dev
 
   # url-shortener-fe service
   url-shortener-fe:
@@ -55,7 +54,6 @@ services:
     volumes:
       - ./url-shortener-fe:/usr/src/app
       - node_modules:/usr/src/app/node_modules
-    command: npm run start:dev
 
 volumes:
   mongo-data:

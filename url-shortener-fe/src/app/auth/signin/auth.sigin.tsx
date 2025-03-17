@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Exception } from '../../../common/exception/exception';
+import { Exception } from '../../../common/exception/exception.base';
 import { ExceptionInline } from '../../../common/exception/exception.inline';
 import { Header } from '../../../common/header/header';
 import { HomeLink } from '../../home/home.link';

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Exception } from '../../../common/exception/exception';
+import { Exception } from '../../../common/exception/exception.base';
 import { ProgressOverflow } from '../../../common/progress/progress.overflow';
 import { ResponseControllerOne } from '../../../common/response/response.controller.one';
 import { RouterPath } from '../../router/router.path';

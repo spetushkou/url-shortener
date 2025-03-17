@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Exception } from '../../../common/exception/exception';
+import { Exception } from '../../../common/exception/exception.base';
 import { RouterPath } from '../../router/router.path';
 import { AuthService } from '../auth.service';
 import { AuthContext } from '../context/auth.context';

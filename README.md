@@ -21,7 +21,7 @@ docker compose down
 cd url-shortener
 docker compose -f docker-compose.prod.yml up --build
 
-# Navigate to a browser and enter URL: `http://localhost:8080/`
+# Navigate to a browser and enter URL: `http://localhost:80/`
 
 # stop
 cd url-shortener
